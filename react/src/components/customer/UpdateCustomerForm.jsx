@@ -35,7 +35,7 @@ const MyDropzone = ({ userId, fetchUsers }) => {
             formData
         ).then(() => {
             successNotification("Success", "Profile picture uploaded")
-            fetchCustomers()
+            fetchUsers()
         }).catch(() => {
             errorNotification("Error", "Profile picture failed upload")
         })
@@ -62,7 +62,7 @@ const MyDropzone = ({ userId, fetchUsers }) => {
 }
 
 // And now we can use these
-const UpdateCustomerForm = ({fetchCustomers, initialValues, customerId}) => {
+const UpdateUserForm = ({fetchUsers, initialValues, userId}) => {
     return (
         <>
             <VStack spacing={'5'} mb={'5'}>
@@ -70,11 +70,11 @@ const UpdateCustomerForm = ({fetchCustomers, initialValues, customerId}) => {
                     borderRadius={'full'}
                     boxSize={'150px'}
                     objectFit={'cover'}
-                    src={customerProfilePictureUrl(customerId)}
+                    src={userProfilePictureUrl(userId)}
                 />
                 <MyDropzone
-                    customerId={customerId}
-                    fetchCustomers={fetchCustomers}
+                    userId={userId}
+                    fetchUsers={fetchUsers}
                 />
             </VStack>
             <Formik
@@ -91,16 +91,16 @@ const UpdateCustomerForm = ({fetchCustomers, initialValues, customerId}) => {
                         .max(100, 'Must be less than 100 years of age')
                         .required(),
                 })}
-                onSubmit={(updatedCustomer, {setSubmitting}) => {
+                onSubmit={(updatedUser, {setSubmitting}) => {
                     setSubmitting(true);
-                    updateCustomer(customerId, updatedCustomer)
+                    updateUser(userId, updatedUser)
                         .then(res => {
                             console.log(res);
                             successNotification(
                                 "User updated",
-                                `${updatedCustomer.name} was successfully updated`
+                                `${updatedUser.name} was successfully updated`
                             )
-                            fetchCustomers();
+                            fetchUsers();
                         }).catch(err => {
                         console.log(err);
                         errorNotification(
@@ -145,4 +145,4 @@ const UpdateCustomerForm = ({fetchCustomers, initialValues, customerId}) => {
     );
 };
 
-export default UpdateCustomerForm;
+export default UpdateUserForm;
