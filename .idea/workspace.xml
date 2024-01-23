@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bf064af-d62f-4121-950a-cbf303758f64" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react/src/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react/src/components/login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/login/Login.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react/src/components/shared/SideBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/shared/SideBar.jsx" afterDir="false" />
     </list>
@@ -60,7 +60,7 @@
       <updated>1704989480974</updated>
       <workItem from="1704989482021" duration="7796000" />
       <workItem from="1706023312736" duration="393000" />
-      <workItem from="1706023760409" duration="11537000" />
+      <workItem from="1706023760409" duration="15540000" />
     </task>
     <servers />
   </component>

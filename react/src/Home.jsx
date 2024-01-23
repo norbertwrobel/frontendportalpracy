@@ -54,7 +54,7 @@ const Home = () => {
             <VStack align="center" spacing={"30px"}>
                     {jobPosts.map(jobPost => (
                         //<div key={jobPost.id}>{jobPost.title}</div>
-                        <CardWithJobPost></CardWithJobPost>
+                        <CardWithJobPost {...jobPost}/>
                     ))}
             </VStack>
         </SidebarWithHeader>

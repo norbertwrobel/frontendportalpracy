@@ -80,7 +80,7 @@ const SidebarContent = ({onClose, ...rest}) => {
             pos="fixed"
             h="full"
             {...rest}>
-            <Flex h="20" flexDirection="column" alignItems="center" mx="8" mb={75} mt={2} justifyContent="space-between">
+            <Flex h="20" flexDirection="column" alignItems="center" mx="8" mb={150} mt={2} justifyContent="space-between">
                 <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold" mb={5} mt={5}>
                     Dashboard
                 </Text>
@@ -92,6 +92,12 @@ const SidebarContent = ({onClose, ...rest}) => {
                 />
                 <CloseButton display={{base: 'flex', md: 'none'}} onClick={onClose}/>
             </Flex>
+
+            {LinkItems.map((link) => (
+                <NavItem key={link.name} icon={link.icon}>
+                    {link.name}
+                </NavItem>
+            ))}
         </Box>
     );
 };
@@ -195,7 +201,6 @@ const MobileNav = ({onOpen, ...rest}) => {
                             borderColor={useColorModeValue('gray.200', 'gray.700')}>
                             <MenuItem onClick={navigateToUser}>Profile</MenuItem>
                             <MenuItem>Settings</MenuItem>
-                            <MenuItem>Billing</MenuItem>
                             <MenuDivider/>
                             <MenuItem onClick={logOut}>
                                 Sign out

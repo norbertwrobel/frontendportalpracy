@@ -18,6 +18,8 @@ import {useAuth} from "../context/AuthContext.jsx";
 import {errorNotification} from "../../services/notification.js";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import logo from '../../assets/logo.png';
+import front from '../../assets/front.png';
 
 const MyTextInput = ({label, ...props}) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -116,8 +118,9 @@ const Login = () => {
             <Flex p={8} flex={1} alignItems={'center'} justifyContent={'center'}>
                 <Stack spacing={4} w={'full'} maxW={'md'}>
                     <Image
-                        src={"https://user-images.githubusercontent.com/40702606/210880158-e7d698c2-b19a-4057-b415-09f48a746753.png"}
-                        boxSize={"200px"}
+                        src={logo}
+                        boxSize={"250px"}
+                        borderRadius='full'
                         alt={"Pikej Logo"}
                         alignSelf={"center"}
                     />
@@ -137,16 +140,14 @@ const Login = () => {
                 bgGradient={{sm: 'linear(to-r, blue.600, purple.600)'}}
             >
                 <Text fontSize={"6xl"} color={'white'} fontWeight={"bold"} mb={5}>
-                    <Link target={"_blank"} href={"https://amigoscode.com/courses"}>
+                    <Link target={"_blank"} href={"https://www.merito.pl/"}>
                         Enrol Now
                     </Link>
                 </Text>
                 <Image
-                    alt={'Login Image'}
+                    alt={'Front Image'}
                     objectFit={'scale-down'}
-                    src={
-                        'https://user-images.githubusercontent.com/40702606/215539167-d7006790-b880-4929-83fb-c43fa74f429e.png'
-                    }
+                    src={front}
                 />
             </Flex>
         </Stack>
