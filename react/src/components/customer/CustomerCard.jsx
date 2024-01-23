@@ -16,11 +16,11 @@ import {
 } from '@chakra-ui/react';
 
 import {useRef} from 'react'
-import {customerProfilePictureUrl, deleteCustomer} from "../../services/client.js";
+import {userProfilePictureUrl, deleteUser} from "../../services/client.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
-import UpdateCustomerDrawer from "./UpdateCustomerDrawer.jsx";
+import UpdateUserDrawer from "./UpdateUserDrawer.jsx";
 
-export default function CardWithImage({id, role ,login, imageNumber, fetchCustomers}) {
+export default function CardWithImage({id, role ,login, imageNumber, fetchUsers}) {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = useRef()
@@ -47,7 +47,7 @@ export default function CardWithImage({id, role ,login, imageNumber, fetchCustom
                 <Flex justify={'center'} mt={-12}>
                     <Avatar
                         size={'xl'}
-                        src={customerProfilePictureUrl(id)}
+                        src={userProfilePictureUrl(id)}
                         alt={'Author'}
                         css={{
                             border: '2px solid white',
@@ -67,10 +67,10 @@ export default function CardWithImage({id, role ,login, imageNumber, fetchCustom
                 </Box>
                 <Stack direction={'row'} justify={'center'} spacing={6} p={4}>
                     <Stack>
-                        <UpdateCustomerDrawer
+                        <UpdateUserDrawer
                             initialValues={{  }}
-                            customerId={id}
-                            fetchCustomers={fetchCustomers}
+                            userId={id}
+                            fetchUsers={fetchUsers}
                         />
                     </Stack>
                     <Stack>
@@ -97,7 +97,7 @@ export default function CardWithImage({id, role ,login, imageNumber, fetchCustom
                             <AlertDialogOverlay>
                                 <AlertDialogContent>
                                     <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-                                        Delete Customer
+                                        Delete User
                                     </AlertDialogHeader>
 
                                     <AlertDialogBody>
@@ -109,13 +109,13 @@ export default function CardWithImage({id, role ,login, imageNumber, fetchCustom
                                             Cancel
                                         </Button>
                                         <Button colorScheme='red' onClick={() => {
-                                            deleteCustomer(id).then(res => {
+                                            deleteUser(id).then(res => {
                                                 console.log(res)
                                                 successNotification(
-                                                    'Customer deleted',
+                                                    'User deleted',
                                                     `${name} was successfully deleted`
                                                 )
-                                                fetchCustomers();
+                                                fetchUsers();
 
                                             }).catch(err => {
                                                 console.log(err);

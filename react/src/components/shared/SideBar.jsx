@@ -35,7 +35,7 @@ import {useNavigate} from "react-router-dom";
 
 const LinkItems = [
     {name: 'Home', route: '/dashboard', icon: FiHome},
-    {name: 'Customers', route: '/dashboard/customers',  icon: FiUsers},
+    {name: 'Users', route: '/dashboard/users',  icon: FiUsers},
     {name: 'Settings', route: '/dashboard/settings', icon: FiSettings},
 ];
 
@@ -127,9 +127,9 @@ const NavItem = ({icon, route, children, ...rest}) => {
 };
 
 const MobileNav = ({onOpen, ...rest}) => {
-    const { logOut, customer } = useAuth()
+    const { logOut, user } = useAuth()
     const navigate= useNavigate()
-    const navigateToCustomer = () => navigate("/dashboard/customers");
+    const navigateToUser = () => navigate("/dashboard/users");
     return (
         <Flex
             ml={{base: 0, md: 60}}
@@ -182,7 +182,7 @@ const MobileNav = ({onOpen, ...rest}) => {
                                     alignItems="flex-start"
                                     spacing="1px"
                                     ml="2">
-                                    <Text fontSize="sm">{customer?.username}</Text>
+                                    <Text fontSize="sm">{user?.username}</Text>
                                 </VStack>
                                 <Box display={{base: 'none', md: 'flex'}}>
                                     <FiChevronDown/>
@@ -192,7 +192,7 @@ const MobileNav = ({onOpen, ...rest}) => {
                         <MenuList
                             bg={useColorModeValue('white', 'gray.900')}
                             borderColor={useColorModeValue('gray.200', 'gray.700')}>
-                            <MenuItem onClick={navigateToCustomer}>Profile</MenuItem>
+                            <MenuItem onClick={navigateToUser}>Profile</MenuItem>
                             <MenuItem>Settings</MenuItem>
                             <MenuItem>Billing</MenuItem>
                             <MenuDivider/>

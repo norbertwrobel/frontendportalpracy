@@ -3,7 +3,7 @@ import {Text, Wrap, WrapItem} from "@chakra-ui/react";
 import {getJobPosts} from "./services/client.js";
 import {errorNotification} from "./services/notification.js";
 import {useEffect, useState} from "react";
-import CardWithImage from "./components/customer/CustomerCard.jsx";
+import CardWithImage from "./components/user/UserCard.jsx";
 
 const Home = () => {
     const [jobPosts, setJobPosts] = useState([]);

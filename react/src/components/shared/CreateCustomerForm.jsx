@@ -1,7 +1,7 @@
 import {Form, Formik, useField} from 'formik';
 import * as Yup from 'yup';
 import {Alert, AlertIcon, Box, Button, FormLabel, Input, Select, Stack} from "@chakra-ui/react";
-import {saveCustomer} from "../../services/client.js";
+import {saveUser} from "../../services/client.js";
 import {successNotification, errorNotification} from "../../services/notification.js";
 
 const MyTextInput = ({label, ...props}) => {
@@ -40,7 +40,7 @@ const MySelect = ({label, ...props}) => {
 };
 
 // And now we can use these
-const CreateCustomerForm = ({ onSuccess }) => {
+const CreateUserForm = ({ onSuccess }) => {
     return (
         <>
             <Formik
@@ -73,14 +73,14 @@ const CreateCustomerForm = ({ onSuccess }) => {
                         )
                         .required('Required'),
                 })}
-                onSubmit={(customer, {setSubmitting}) => {
+                onSubmit={(user, {setSubmitting}) => {
                     setSubmitting(true);
-                    saveCustomer(customer)
+                    saveUser(user)
                         .then(res => {
                             console.log(res);
                             successNotification(
-                                "Customer saved",
-                                `${customer.name} was successfully saved`
+                                "User saved",
+                                `${user.name} was successfully saved`
                             )
                             onSuccess(res.headers["authorization"]);
                         }).catch(err => {
@@ -140,4 +140,4 @@ const CreateCustomerForm = ({ onSuccess }) => {
     );
 };
 
-export default CreateCustomerForm;
+export default CreateUserForm;

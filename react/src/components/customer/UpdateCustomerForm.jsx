@@ -1,7 +1,7 @@
 import {Form, Formik, useField} from 'formik';
 import * as Yup from 'yup';
 import {Alert, AlertIcon, Box, Button, FormLabel, Image, Input, Stack, VStack} from "@chakra-ui/react";
-import {customerProfilePictureUrl, updateCustomer, uploadCustomerProfilePicture} from "../../services/client.js";
+import {userProfilePictureUrl, updateUser, uploadUserProfilePicture} from "../../services/client.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
 import {useCallback} from "react";
 import {useDropzone} from "react-dropzone";
@@ -25,13 +25,13 @@ const MyTextInput = ({label, ...props}) => {
     );
 };
 
-const MyDropzone = ({ customerId, fetchCustomers }) => {
+const MyDropzone = ({ userId, fetchUsers }) => {
     const onDrop = useCallback(acceptedFiles => {
         const formData = new FormData();
         formData.append("file", acceptedFiles[0])
 
-        uploadCustomerProfilePicture(
-            customerId,
+        uploadUserProfilePicture(
+            userId,
             formData
         ).then(() => {
             successNotification("Success", "Profile picture uploaded")
@@ -97,7 +97,7 @@ const UpdateCustomerForm = ({fetchCustomers, initialValues, customerId}) => {
                         .then(res => {
                             console.log(res);
                             successNotification(
-                                "Customer updated",
+                                "User updated",
                                 `${updatedCustomer.name} was successfully updated`
                             )
                             fetchCustomers();

@@ -7,7 +7,7 @@ const getAuthConfig = () => ({
 
 })
 
-export const getCustomers = async () => {
+export const getUsers = async () => {
     try {
         return await axios.get(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/users`,
@@ -28,21 +28,21 @@ export const getJobPosts = async () => {
         throw e;
     }
 }
-export const saveCustomer = async (customer) => {
+export const saveUser = async (user) => {
     try {
         return await axios.post(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers`,
-            customer
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users`,
+            user
         )
     } catch (e) {
         throw e;
     }
 }
 
-export const updateCustomer = async (id, update) => {
+export const updateUser = async (id, update) => {
     try {
         return await axios.put(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers/${id}`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${id}`,
             update,
             getAuthConfig()
         )
@@ -51,10 +51,10 @@ export const updateCustomer = async (id, update) => {
     }
 }
 
-export const deleteCustomer = async (id) => {
+export const deleteUser = async (id) => {
     try {
         return await axios.delete(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers/${id}`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${id}`,
             getAuthConfig()
         )
     } catch (e) {
@@ -78,10 +78,10 @@ export const login = async (usernameAndPassword) => {
     }
 }
 
-export const uploadCustomerProfilePicture = async (id, formData) => {
+export const uploadUserProfilePicture = async (id, formData) => {
     try {
         return axios.post(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers/${id}/profile-image`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${id}/profile-image`,
             formData,
             {
                 ...getAuthConfig(),
@@ -94,5 +94,5 @@ export const uploadCustomerProfilePicture = async (id, formData) => {
 }
 
 
-export const customerProfilePictureUrl = (id) =>
-    `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers/${id}/profile-image`;
+export const userProfilePictureUrl = (id) =>
+    `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${id}/profile-image`;

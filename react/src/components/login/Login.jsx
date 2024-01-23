@@ -102,12 +102,12 @@ const LoginForm = () => {
 
 const Login = () => {
 
-    const { customer } = useAuth();
+    const { user } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (customer) {
-            navigate("/dashboard/customers");
+        if (user) {
+            navigate("/dashboard/users");
         }
     })
 

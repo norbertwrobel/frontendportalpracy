@@ -2,15 +2,15 @@ import {useAuth} from "../context/AuthContext.jsx";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {Flex, Heading, Image, Link, Stack, Text} from "@chakra-ui/react";
-import CreateCustomerForm from "../shared/CreateCustomerForm.jsx";
+import CreateUserForm from "../shared/CreateUserForm.jsx";
 
 const Signup = () => {
-    const { customer, setCustomerFromToken } = useAuth();
+    const { user, setUserFromToken } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (customer) {
-            navigate("/dashboard/customers");
+        if (user) {
+            navigate("/dashboard/users");
         }
     })
 
@@ -25,9 +25,9 @@ const Signup = () => {
                         alignSelf={"center"}
                     />
                     <Heading fontSize={'2xl'} mb={15}>Register for an account</Heading>
-                    <CreateCustomerForm onSuccess={(token) => {
+                    <CreateUserForm onSuccess={(token) => {
                         localStorage.setItem("access_token", token)
-                        setCustomerFromToken()
+                        setUserFromToken()
                         navigate("/dashboard");
                     }}/>
                     <Link color={"blue.500"} href={"/"}>
