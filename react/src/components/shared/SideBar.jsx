@@ -34,10 +34,9 @@ import {useAuth} from "../context/AuthContext.jsx";
 import {useNavigate} from "react-router-dom";
 import logo from '../../assets/logo.png';
 
+
 const LinkItems = [
     {name: 'Home', route: '/dashboard', icon: FiHome},
-    {name: 'Users', route: '/dashboard/users',  icon: FiUsers},
-    {name: 'Settings', route: '/dashboard/settings', icon: FiSettings},
 ];
 
 export default function SidebarWithHeader({children}) {
@@ -102,9 +101,19 @@ const SidebarContent = ({onClose, ...rest}) => {
     );
 };
 
+
+
+
 const NavItem = ({icon, route, children, ...rest}) => {
+    const navigate = useNavigate();
+
+    const handleClick = (event) => {
+        event.preventDefault();
+        navigate(route);
+    };
+
     return (
-        <Link href={route} style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}}>
+        <Link href={route} style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}} onClick={handleClick}>
             <Flex
                 align="center"
                 p="4"
@@ -132,6 +141,7 @@ const NavItem = ({icon, route, children, ...rest}) => {
         </Link>
     );
 };
+
 
 const MobileNav = ({onOpen, ...rest}) => {
     const { logOut, user } = useAuth()
@@ -165,12 +175,7 @@ const MobileNav = ({onOpen, ...rest}) => {
             </Text>
 
             <HStack spacing={{base: '0', md: '6'}}>
-                <IconButton
-                    size="lg"
-                    variant="ghost"
-                    aria-label="open menu"
-                    icon={<FiBell/>}
-                />
+
                 <Flex alignItems={'center'}>
                     <Menu>
                         <MenuButton
@@ -200,7 +205,6 @@ const MobileNav = ({onOpen, ...rest}) => {
                             bg={useColorModeValue('white', 'gray.900')}
                             borderColor={useColorModeValue('gray.200', 'gray.700')}>
                             <MenuItem onClick={navigateToUser}>Profile</MenuItem>
-                            <MenuItem>Settings</MenuItem>
                             <MenuDivider/>
                             <MenuItem onClick={logOut}>
                                 Sign out

@@ -3,6 +3,8 @@ import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {Flex, Heading, Image, Link, Stack, Text} from "@chakra-ui/react";
 import CreateUserForm from "../shared/CreateUserForm.jsx";
+import logo from '../../assets/logo.png';
+import front from '../../assets/front.png';
 
 const Signup = () => {
     const { user, setUserFromToken } = useAuth();
@@ -19,9 +21,10 @@ const Signup = () => {
             <Flex p={8} flex={1} alignItems={'center'} justifyContent={'center'}>
                 <Stack spacing={4} w={'full'} maxW={'md'}>
                     <Image
-                        src={"https://user-images.githubusercontent.com/40702606/210880158-e7d698c2-b19a-4057-b415-09f48a746753.png"}
+                        src={logo}
                         boxSize={"200px"}
-                        alt={"Amigoscode Logo"}
+                        borderRadius='full'
+                        alt={"NoPikejobs Logo"}
                         alignSelf={"center"}
                     />
                     <Heading fontSize={'2xl'} mb={15}>Register for an account</Heading>
@@ -44,16 +47,14 @@ const Signup = () => {
                 bgGradient={{sm: 'linear(to-r, blue.600, purple.600)'}}
             >
                 <Text fontSize={"6xl"} color={'white'} fontWeight={"bold"} mb={5}>
-                    <Link target={"_blank"} href={"https://amigoscode.com/courses"}>
+                    <Link target={"_blank"} href={"https://www.merito.pl/"}>
                         Enrol Now
                     </Link>
                 </Text>
                 <Image
                     alt={'Login Image'}
                     objectFit={'scale-down'}
-                    src={
-                        'https://user-images.githubusercontent.com/40702606/215539167-d7006790-b880-4929-83fb-c43fa74f429e.png'
-                    }
+                    src={front}
                 />
             </Flex>
         </Stack>

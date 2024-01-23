@@ -45,31 +45,35 @@ const CreateUserForm = ({ onSuccess }) => {
         <>
             <Formik
                 initialValues={{
-                    name: '',
+                    firstName: '',
+                    lastName:'',
+                    login:'',
+                    password:'',
                     email: '',
-                    age: 0,
-                    gender: '',
-                    password: ''
+                    role:''
                 }}
                 validationSchema={Yup.object({
-                    name: Yup.string()
+                    firstName: Yup.string()
+                        .max(15, 'Must be 15 characters or less')
+                        .required('Required'),
+                    lastName: Yup.string()
+                        .max(15, 'Must be 15 characters or less')
+                        .required('Required'),
+                    login: Yup.string()
+                        .min(5, 'Must be at least 5 characters')
+                        .max(15, 'Must be 15 characters or less')
+                        .required('Required'),
+                    password: Yup.string()
+                        .min(4, 'Must be 4 characters or more')
                         .max(15, 'Must be 15 characters or less')
                         .required('Required'),
                     email: Yup.string()
                         .email('Must be 20 characters or less')
                         .required('Required'),
-                    age: Yup.number()
-                        .min(16, 'Must be at least 16 years of age')
-                        .max(100, 'Must be less than 100 years of age')
-                        .required(),
-                    password: Yup.string()
-                        .min(4, 'Must be 4 characters or more')
-                        .max(15, 'Must be 15 characters or less')
-                        .required('Required'),
-                    gender: Yup.string()
+                    role: Yup.string()
                         .oneOf(
-                            ['MALE', 'FEMALE'],
-                            'Invalid gender'
+                            ['CANDIDATE', 'COMPANY_HR'],
+                            'Invalid role'
                         )
                         .required('Required'),
                 })}
@@ -98,37 +102,44 @@ const CreateUserForm = ({ onSuccess }) => {
                     <Form>
                         <Stack spacing={"24px"}>
                             <MyTextInput
-                                label="Name"
-                                name="name"
+                                label="First Name"
+                                name="firstname"
                                 type="text"
-                                placeholder="Jane"
+                                placeholder="John"
                             />
 
                             <MyTextInput
-                                label="Email Address"
-                                name="email"
-                                type="email"
-                                placeholder="jane@formik.com"
+                                label="Last Name"
+                                name="lastname"
+                                type="text"
+                                placeholder="Doe"
                             />
 
                             <MyTextInput
-                                label="Age"
-                                name="age"
-                                type="number"
-                                placeholder="20"
+                                label="Login"
+                                name="login"
+                                type="text"
+                                placeholder="johnie123"
                             />
 
                             <MyTextInput
                                 label="Password"
                                 name="password"
                                 type="password"
-                                placeholder={"pick a secure password"}
+                                placeholder={"Pick a secure password"}
                             />
 
-                            <MySelect label="Gender" name="gender">
-                                <option value="">Select gender</option>
-                                <option value="MALE">Male</option>
-                                <option value="FEMALE">Female</option>
+                            <MyTextInput
+                                label="Email Address"
+                                name="email"
+                                type="email"
+                                placeholder="johnd@gmail.com"
+                            />
+
+                            <MySelect label="User type" name="role">
+                                <option value="">Select user type</option>
+                                <option value="CANDIDATE">Candidate</option>
+                                <option value="COMPANY_HR">Company HR</option>
                             </MySelect>
 
                             <Button disabled={!isValid || isSubmitting} type="submit">Submit</Button>
