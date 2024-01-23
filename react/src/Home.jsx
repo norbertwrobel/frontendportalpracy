@@ -1,14 +1,17 @@
 import SidebarWithHeader from "./components/shared/SideBar.jsx";
-import {Text, Wrap, WrapItem} from "@chakra-ui/react";
+import {Text, Wrap, WrapItem, Spinner, VStack} from "@chakra-ui/react";
 import {getJobPosts} from "./services/client.js";
 import {errorNotification} from "./services/notification.js";
 import {useEffect, useState} from "react";
 import CardWithImage from "./components/user/UserCard.jsx";
+import CardWithJobPost from "./components/jobpost/JobPostCard.jsx";
+
 
 const Home = () => {
     const [jobPosts, setJobPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
     const fetchJobPosts = () => {
-        // setLoading(true);
+        setLoading(true);
         getJobPosts().then(res => {
             setJobPosts(res.data)
         }).catch(err => {
@@ -18,23 +21,42 @@ const Home = () => {
                 err.response.data.message
             )
         }).finally(() => {
-            // setLoading(false)
+            setLoading(false)
         })
     }
     useEffect(() => {
         fetchJobPosts();
     }, [])
+
+    if (loading){
+        return(
+            <SidebarWithHeader>
+                <Spinner
+                    thickness='4px'
+                    speed='0.65s'
+                    emptyColor='gray.200'
+                    color='blue.500'
+                    size='xl'
+                />
+            </SidebarWithHeader>
+        )
+    }
+    if(jobPosts.length <= 0){
+        return(
+            <SidebarWithHeader>
+                <Text>No Job Posts</Text>
+            </SidebarWithHeader>
+        )
+    }
     return (
         <SidebarWithHeader>
-            <Text fontSize={"6xl"}>Dashboard</Text>
 
-            <Wrap justify={"center"} spacing={"30px"}>
-                <WrapItem>
+            <VStack align="center" spacing={"30px"}>
                     {jobPosts.map(jobPost => (
-                        <div key={jobPost.id}>{jobPost.title}</div>
+                        //<div key={jobPost.id}>{jobPost.title}</div>
+                        <CardWithJobPost></CardWithJobPost>
                     ))}
-                </WrapItem>
-            </Wrap>
+            </VStack>
         </SidebarWithHeader>
     )
 }

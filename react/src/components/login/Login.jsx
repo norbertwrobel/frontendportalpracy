@@ -76,9 +76,9 @@ const LoginForm = () => {
                 <Form>
                     <Stack mt={15} spacing={15}>
                         <MyTextInput
-                            label={"Email"}
+                            label={"Login"}
                             name={"login"}
-                            placeholder={"hello@amigoscode.com"}
+                            placeholder={"Type your login"}
                         />
                         <MyTextInput
                             label={"Password"}

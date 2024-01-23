@@ -32,6 +32,7 @@ import {
 } from 'react-icons/fi';
 import {useAuth} from "../context/AuthContext.jsx";
 import {useNavigate} from "react-router-dom";
+import logo from '../../assets/logo.png';
 
 const LinkItems = [
     {name: 'Home', route: '/dashboard', icon: FiHome},
@@ -80,14 +81,14 @@ const SidebarContent = ({onClose, ...rest}) => {
             h="full"
             {...rest}>
             <Flex h="20" flexDirection="column" alignItems="center" mx="8" mb={75} mt={2} justifyContent="space-between">
-                <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold" mb={5}>
+                <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold" mb={5} mt={5}>
                     Dashboard
                 </Text>
                 <Image
                     borderRadius='full'
-                    boxSize='75px'
-                    src='https://user-images.githubusercontent.com/40702606/210880158-e7d698c2-b19a-4057-b415-09f48a746753.png'
-                    alt='Amigoscode'
+                    boxSize='100px'
+                    src={logo}
+                    alt='NoPikejobs'
                 />
                 <CloseButton display={{base: 'flex', md: 'none'}} onClick={onClose}/>
             </Flex>
