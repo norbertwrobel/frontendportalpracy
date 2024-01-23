@@ -9,7 +9,7 @@ import {
     DrawerOverlay,
     useDisclosure
 } from "@chakra-ui/react";
-import CreateUserForm from "../shared/CreateUserForm.jsx";
+import CreateUserForm from "./CreateUserForm.jsx";
 
 const AddIcon = () => "+";
 const CloseIcon = () => "x";

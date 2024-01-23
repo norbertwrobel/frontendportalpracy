@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4bf064af-d62f-4121-950a-cbf303758f64" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/components/shared/CreateUserForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/shared/CreateUserForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/components/shared/SideBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/shared/SideBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/shared/CreateUserForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/user/CreateUserForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react/src/components/signup/Signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/signup/Signup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/user/CreateUserDrawer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/user/CreateUserDrawer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/user/UpdateUserForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/user/UpdateUserForm.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +49,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\h4ck3\Desktop\frontend" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\GitHub\frontendportalpracy\react\src\components\user" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -59,7 +63,7 @@
       <updated>1704989480974</updated>
       <workItem from="1704989482021" duration="7796000" />
       <workItem from="1706023312736" duration="393000" />
-      <workItem from="1706023760409" duration="20053000" />
+      <workItem from="1706023760409" duration="22531000" />
     </task>
     <servers />
   </component>

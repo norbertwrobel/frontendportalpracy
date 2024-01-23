@@ -2,7 +2,7 @@ import {useAuth} from "../context/AuthContext.jsx";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {Flex, Heading, Image, Link, Stack, Text} from "@chakra-ui/react";
-import CreateUserForm from "../shared/CreateUserForm.jsx";
+import CreateUserForm from "../user/CreateUserForm.jsx";
 import logo from '../../assets/logo.png';
 import front from '../../assets/front.png';
 
