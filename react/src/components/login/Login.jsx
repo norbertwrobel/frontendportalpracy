@@ -118,7 +118,7 @@ const Login = () => {
                     <Image
                         src={"https://user-images.githubusercontent.com/40702606/210880158-e7d698c2-b19a-4057-b415-09f48a746753.png"}
                         boxSize={"200px"}
-                        alt={"Amigoscode Logo"}
+                        alt={"Pikej Logo"}
                         alignSelf={"center"}
                     />
                     <Heading fontSize={'2xl'} mb={15}>Sign in to your account</Heading>
