@@ -13,19 +13,19 @@ const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
 
-    const setUserFromToken = () => {
-        let token = localStorage.getItem("access_token");
-        if (token) {
-            token = jwtDecode(token);
-            setUser({
-                login: token.sub,
-                roles: token.scopes
-            })
-        }
-    }
-    useEffect(() => {
-        setUserFromToken()
-    }, [])
+    // const setUserFromToken = () => {
+    //     let token = localStorage.getItem("access_token");
+    //     if (token) {
+    //         token = jwtDecode(token);
+    //         setUser({
+    //             login: token.sub,
+    //             roles: token.scopes
+    //         })
+    //     }
+    // }
+    // useEffect(() => {
+    //     setUserFromToken()
+    // }, [])
 
 
     const login = async (usernameAndPassword) => {
@@ -67,10 +67,10 @@ const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider value={{
             user,
+            setUser,
             login,
             logOut,
-            isUserAuthenticated,
-            setUserFromToken
+            isUserAuthenticated
         }}>
             {children}
         </AuthContext.Provider>

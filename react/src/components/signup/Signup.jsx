@@ -7,7 +7,7 @@ import logo from '../../assets/logo.png';
 import front from '../../assets/front.png';
 
 const Signup = () => {
-    const { user, setUserFromToken } = useAuth();
+    const { user} = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,7 +30,6 @@ const Signup = () => {
                     <Heading fontSize={'2xl'} mb={15}>Register for an account</Heading>
                     <CreateUserForm onSuccess={(token) => {
                         localStorage.setItem("access_token", token)
-                        setUserFromToken()
                         navigate("/dashboard");
                     }}/>
                     <Link color={"blue.500"} href={"/"}>

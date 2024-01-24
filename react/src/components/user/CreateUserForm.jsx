@@ -1,8 +1,10 @@
 import {Form, Formik, useField} from 'formik';
 import * as Yup from 'yup';
 import {Alert, AlertIcon, Box, Button, FormLabel, Input, Select, Stack} from "@chakra-ui/react";
-import {saveUser} from "../../services/client.js";
+import {saveUser,register,login} from "../../services/client.js";
 import {successNotification, errorNotification} from "../../services/notification.js";
+import {useState} from "react";
+import {useAuth} from "../context/AuthContext.jsx";
 
 const MyTextInput = ({label, ...props}) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -41,6 +43,8 @@ const MySelect = ({label, ...props}) => {
 
 // And now we can use these
 const CreateUserForm = ({ onSuccess }) => {
+    const [token,setToken] = useState('')
+    const {user,setUser} = useAuth()
     return (
         <>
             <Formik
@@ -77,25 +81,54 @@ const CreateUserForm = ({ onSuccess }) => {
                         )
                         .required('Required'),
                 })}
-                onSubmit={(user, {setSubmitting}) => {
+                onSubmit={async (user, {setSubmitting}) => {
+                    console.log(user,"dupskie")
                     setSubmitting(true);
-                    saveUser(user)
-                        .then(res => {
-                            console.log(res);
-                            successNotification(
-                                "User saved",
-                                `${user.name} was successfully saved`
-                            )
-                            onSuccess(res.headers["authorization"]);
-                        }).catch(err => {
-                            console.log(err);
-                            errorNotification(
-                                err.code,
-                                err.response.data.message
-                            )
-                    }).finally(() => {
-                         setSubmitting(false);
-                    })
+                    try {
+                        const registerResponse = await register(user);
+                        const jwtToken = registerResponse.data.jwt;
+
+                        console.log(jwtToken, "res");
+                        localStorage.setItem("access_token", jwtToken);
+                        login({login: user.login, password: user.password}, jwtToken).then(res =>{
+                            console.log(res.data.jwt,"pipskie")
+                            localStorage.setItem("access_token", res.data.jwt);
+                        });
+                        setUser(user)
+
+
+                        // saveUser(user)
+                        //     .then(res => {
+                        //         console.log(res);
+                        //         successNotification(
+                        //             "User saved",
+                        //             `${user.name} was successfully saved`
+                        //         )
+                        //         // onSuccess(res.headers["authorization",token]);
+                        //     }).catch(err => {
+                        //     console.log(err);
+                        //     errorNotification(
+                        //         err.code,
+                        //         err.response.data.message
+                        //     )
+                        // }).finally(() => {
+                        //     setSubmitting(false);
+                        // })
+
+                    } catch (registerError) {
+                        console.error('Error during registration:', registerError);
+                        // Handle registration error if needed
+                        errorNotification(
+                            registerError.code,
+                            registerError.response?.data.message || 'Registration failed'
+                        );
+                        setSubmitting(false);
+                        return;
+                    }
+
+                    navigate("/dashboard");
+
+
                 }}
             >
                 {({isValid, isSubmitting}) => (
@@ -103,14 +136,14 @@ const CreateUserForm = ({ onSuccess }) => {
                         <Stack spacing={"24px"}>
                             <MyTextInput
                                 label="First Name"
-                                name="firstname"
+                                name="firstName"
                                 type="text"
                                 placeholder="John"
                             />
 
                             <MyTextInput
                                 label="Last Name"
-                                name="lastname"
+                                name="lastName"
                                 type="text"
                                 placeholder="Doe"
                             />
@@ -142,7 +175,7 @@ const CreateUserForm = ({ onSuccess }) => {
                                 <option value="COMPANY_HR">Company HR</option>
                             </MySelect>
 
-                            <Button disabled={!isValid || isSubmitting} type="submit">Submit</Button>
+                            <Button disabled={!isValid || isSubmitting} type={"submit"}>Submit</Button>
                         </Stack>
                     </Form>
                 )}

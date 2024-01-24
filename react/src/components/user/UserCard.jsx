@@ -16,11 +16,12 @@ import {
 } from '@chakra-ui/react';
 
 import {useRef} from 'react'
-import {userProfilePictureUrl, deleteUser} from "../../services/client.js";
+import {deleteUser} from "../../services/client.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
 import UpdateUserDrawer from "./UpdateUserDrawer.jsx";
+import anonymous from "../../assets/anonymous.jpg";
 
-export default function CardWithImage({id, role ,login, imageNumber, fetchUsers}) {
+export default function CardWithImage({id, role,login, email, firstName, lastName, fetchUsers}) {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = useRef()
@@ -47,7 +48,7 @@ export default function CardWithImage({id, role ,login, imageNumber, fetchUsers}
                 <Flex justify={'center'} mt={-12}>
                     <Avatar
                         size={'xl'}
-                        src={userProfilePictureUrl(id)}
+                        src={anonymous}
                         alt={'Author'}
                         css={{
                             border: '2px solid white',
@@ -57,11 +58,13 @@ export default function CardWithImage({id, role ,login, imageNumber, fetchUsers}
 
                 <Box p={6}>
                     <Stack spacing={2} align={'center'} mb={5}>
-                        <Tag borderRadius={"full"}>{id}</Tag>
                         <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
                             {name}
                         </Heading>
+                        <Text color={'gray.500'}>{firstName}</Text>
+                        <Text color={'gray.500'}>{lastName}</Text>
                         <Text color={'gray.500'}>{login}</Text>
+                        <Text color={'gray.500'}>{email}</Text>
                         <Text color={'gray.500'}>{role}</Text>
                     </Stack>
                 </Box>

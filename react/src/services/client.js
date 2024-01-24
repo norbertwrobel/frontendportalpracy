@@ -32,6 +32,18 @@ export const saveUser = async (user) => {
     try {
         return await axios.post(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/users`,
+            user,
+            getAuthConfig()
+        )
+    } catch (e) {
+        throw e;
+    }
+}
+
+export const register = async (user) => {
+    try {
+        return await axios.post(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/register`,
             user
         )
     } catch (e) {
@@ -62,37 +74,32 @@ export const deleteUser = async (id) => {
     }
 }
 
-export const login = async (usernameAndPassword) => {
+export const login = async (usernameAndPassword, token) => {
+    console.log(token, "token")
     try {
         return await axios.post(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/authenticate`,
             usernameAndPassword,
             {
                 headers: {
-                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXJpIiwiaWF0IjoxNzA0OTk0ODE2LCJleHAiOjE3MDQ5OTYyNTZ9.AfRLPwqtzF-drnZeXDsCpiHqT4mbRvSCjD70dOJIrsw`
+                    Authorization: `Bearer ${token}`
                 }
             }
         );
     } catch (e) {
         throw e;
     }
-}
+};
 
-export const uploadUserProfilePicture = async (id, formData) => {
+export const findUser = async (login) => {
     try {
-        return axios.post(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${id}/profile-image`,
-            formData,
-            {
-                ...getAuthConfig(),
-                'Content-Type': 'multipart/form-data'
-            }
-        );
+        return await axios.get(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${login}`,
+            getAuthConfig()
+        )
     } catch (e) {
         throw e;
     }
 }
 
 
-export const userProfilePictureUrl = (id) =>
-    `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${id}/profile-image`;

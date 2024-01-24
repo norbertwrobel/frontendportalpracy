@@ -1,15 +1,13 @@
 import {Form, Formik, useField} from 'formik';
 import * as Yup from 'yup';
 import {Alert, AlertIcon, Box, Button, FormLabel, Image, Input, Stack, VStack} from "@chakra-ui/react";
-import {userProfilePictureUrl, updateUser, uploadUserProfilePicture} from "../../services/client.js";
+import {updateUser} from "../../services/client.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
 import {useCallback} from "react";
 import {useDropzone} from "react-dropzone";
 
 const MyTextInput = ({label, ...props}) => {
-    // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
-    // which we can spread on <input>. We can use field meta to show an error
-    // message if the field is invalid and it has been touched (i.e. visited)
+
     const [field, meta] = useField(props);
     return (
         <Box>
@@ -25,58 +23,12 @@ const MyTextInput = ({label, ...props}) => {
     );
 };
 
-const MyDropzone = ({ userId, fetchUsers }) => {
-    const onDrop = useCallback(acceptedFiles => {
-        const formData = new FormData();
-        formData.append("file", acceptedFiles[0])
 
-        uploadUserProfilePicture(
-            userId,
-            formData
-        ).then(() => {
-            successNotification("Success", "Profile picture uploaded")
-            fetchUsers()
-        }).catch(() => {
-            errorNotification("Error", "Profile picture failed upload")
-        })
-    }, [])
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
-    return (
-        <Box {...getRootProps()}
-             w={'100%'}
-             textAlign={'center'}
-             border={'dashed'}
-             borderColor={'gray.200'}
-             borderRadius={'3xl'}
-             p={6}
-             rounded={'md'}>
-            <input {...getInputProps()} />
-            {
-                isDragActive ?
-                    <p>Drop the picture here ...</p> :
-                    <p>Drag 'n' drop picture here, or click to select picture</p>
-            }
-        </Box>
-    )
-}
 
-// And now we can use these
 const UpdateUserForm = ({fetchUsers, initialValues, userId}) => {
     return (
         <>
-            <VStack spacing={'5'} mb={'5'}>
-                <Image
-                    borderRadius={'full'}
-                    boxSize={'150px'}
-                    objectFit={'cover'}
-                    src={userProfilePictureUrl(userId)}
-                />
-                <MyDropzone
-                    userId={userId}
-                    fetchUsers={fetchUsers}
-                />
-            </VStack>
             <Formik
                 initialValues={initialValues}
                 validationSchema={Yup.object({

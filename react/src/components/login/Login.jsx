@@ -20,6 +20,7 @@ import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import logo from '../../assets/logo.png';
 import front from '../../assets/front.png';
+import {findUser,login} from "../../services/client.js";
 
 const MyTextInput = ({label, ...props}) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -41,7 +42,7 @@ const MyTextInput = ({label, ...props}) => {
 };
 
 const LoginForm = () => {
-    const { login } = useAuth();
+    const { user,setUser } = useAuth();
     const navigate = useNavigate();
 
     return (
@@ -58,10 +59,14 @@ const LoginForm = () => {
             //     })
             // }
             initialValues={{login: '', password: ''}}
-            onSubmit={(values, {setSubmitting}) => {
+            onSubmit={async (values, {setSubmitting}) => {
                 setSubmitting(true);
-                login(values).then(res => {
-                    console.log(res,"siemaaa")
+                await login(values).then(res => {
+                    setUser(values)
+                    console.log(res,"res!")
+                    localStorage.removeItem("access_token")
+                    localStorage.setItem("access_token",res.data.jwt)
+                    console.log(res, "siemaaa")
                     navigate("/dashboard")
                     console.log("Successfully logged in");
                 }).catch(err => {
@@ -72,6 +77,9 @@ const LoginForm = () => {
                 }).finally(() => {
                     setSubmitting(false);
                 })
+                const currentUser = await findUser(values.login)
+                console.log("odjeb",currentUser);
+                setUser(currentUser.data)
             }}>
 
             {({isValid, isSubmitting}) => (
@@ -104,9 +112,9 @@ const LoginForm = () => {
 
 const Login = () => {
 
-    const { user } = useAuth();
+    const { user,setUser } = useAuth();
     const navigate = useNavigate();
-
+    console.log(user,"user")
     useEffect(() => {
         if (user) {
             navigate("/dashboard/users");
