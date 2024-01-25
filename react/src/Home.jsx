@@ -19,6 +19,7 @@ import {useAuth} from "./components/context/AuthContext.jsx";
 import CreateJobPostForm from "./components/jobpost/CreateJobPostForm.jsx";
 
 
+
 const Home = () => {
     const {user} = useAuth();
     const CloseIcon = () => "x";
@@ -26,10 +27,15 @@ const Home = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [jobPosts, setJobPosts] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [filteredJobPosts, setFilteredJobPosts] = useState(jobPosts);
+    console.log(filteredJobPosts,"siemaaanooo")
+    const [selectedKeyword, setSelectedKeyword] = useState(null);
+
     const fetchJobPosts = () => {
         setLoading(true);
         getJobPosts().then(res => {
             setJobPosts(res.data)
+            setFilteredJobPosts(res.data)
         }).catch(err => {
             // setError(err.response.data.message)
             errorNotification(
@@ -44,9 +50,29 @@ const Home = () => {
         fetchJobPosts();
     }, [])
 
+    const filterJobPosts = (keyword) => {
+        if (keyword === 'Home') {
+            setFilteredJobPosts([...jobPosts]);
+            setSelectedKeyword(null);
+        } else if (keyword) {
+            const filteredPosts = jobPosts.filter(
+                (post) =>
+                    post.title.toLowerCase().includes(keyword.toLowerCase()) ||
+                    post.requirements.toLowerCase().includes(keyword.toLowerCase())
+            );
+            setFilteredJobPosts(filteredPosts);
+            setSelectedKeyword(keyword);
+        } else {
+            setFilteredJobPosts([...jobPosts]);
+            setSelectedKeyword(null);
+        }
+    };
+
+
+
     if (loading){
         return(
-            <SidebarWithHeader>
+            <SidebarWithHeader filterJobPosts={filterJobPosts}>
                 <Spinner
                     thickness='4px'
                     speed='0.65s'
@@ -57,22 +83,22 @@ const Home = () => {
             </SidebarWithHeader>
         )
     }
-    if(jobPosts.length <= 0){
+    if(jobPosts.length <= 0 || filteredJobPosts.length <= 0){
         return(
-            <SidebarWithHeader>
+            <SidebarWithHeader filterJobPosts={filterJobPosts}>
                 <Text>No Job Posts</Text>
             </SidebarWithHeader>
         )
     }
     return (
 
-        <SidebarWithHeader>
-            {user?.role == "COMPANY_HR" && <Button colorScheme={"teal"} onClick={onOpen}>Create a job post</Button>}
+        <SidebarWithHeader filterJobPosts={filterJobPosts}>
+            {user?.role == "COMPANY_HR" && <Button colorScheme={"teal"} mb={3} onClick={onOpen}>Create a job post</Button>}
             <Drawer isOpen={isOpen} onClose={onClose} size={"xl"}>
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>Update user</DrawerHeader>
+                    <DrawerHeader>Create Job Post</DrawerHeader>
 
                     <DrawerBody>
                         <CreateJobPostForm
@@ -89,10 +115,15 @@ const Home = () => {
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>
-            <VStack align="center" spacing={"30px"}>
-                    {jobPosts.map(jobPost => (
-                        //<div key={jobPost.id}>{jobPost.title}</div>
-                        <CardWithJobPost {...jobPost}/>
+            <VStack align="center" spacing={"20px"}>
+                    {/*{jobPosts.map(jobPost => (*/}
+                    {/*    <CardWithJobPost {...jobPost}/>*/}
+                {selectedKeyword
+                    ? filteredJobPosts.map((jobPost) => (
+                        <CardWithJobPost key={jobPost.id} {...jobPost} />
+                    ))
+                    : jobPosts.map((jobPost) => (
+                        <CardWithJobPost key={jobPost.id} {...jobPost} />
                     ))}
             </VStack>
         </SidebarWithHeader>

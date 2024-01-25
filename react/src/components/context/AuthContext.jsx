@@ -49,7 +49,7 @@ const AuthProvider = ({ children,navigate }) => {
     const logOut = () => {
         localStorage.removeItem("access_token")
         setUser(null)
-        navigate("/")
+        navigate("/");
     }
 
     const isUserAuthenticated = () => {

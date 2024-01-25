@@ -27,6 +27,7 @@ import {
     FiChevronDown,
     FiHome,
     FiMenu,
+    FiChevronRight,
     FiSettings,
     FiUsers
 } from 'react-icons/fi';
@@ -34,13 +35,23 @@ import {useAuth} from "../context/AuthContext.jsx";
 import {useNavigate} from "react-router-dom";
 import logo from '../../assets/logo.png';
 import avatar from '../../assets/avatar.jpg'
+import { useLocation } from 'react-router-dom';
 
 
 const LinkItems = [
-    {name: 'Home', route: '/dashboard', icon: FiHome},
+    {name: 'Home', route: '/dashboard', icon: FiHome}
 ];
 
-export default function SidebarWithHeader({children}) {
+const LinkItems2 = [
+    {name: 'Java', route: '', icon: FiChevronRight },
+    {name: 'C#', route: '', icon: FiChevronRight },
+    {name: 'C++', route: '', icon: FiChevronRight },
+    {name: 'Python', route: '', icon: FiChevronRight },
+    {name: 'JavaScript', route: '', icon: FiChevronRight },
+    {name: 'PHP', route: '', icon: FiChevronRight }
+];
+
+export default function SidebarWithHeader({children, filterJobPosts}) {
     const navigate = useNavigate();
     const {isOpen, onOpen, onClose} = useDisclosure();
     return (
@@ -48,6 +59,7 @@ export default function SidebarWithHeader({children}) {
             <SidebarContent
                 onClose={() => onClose}
                 display={{base: 'none', md: 'block'}}
+                filterJobPosts={filterJobPosts}
             />
             <Drawer
                 autoFocus={false}
@@ -58,7 +70,12 @@ export default function SidebarWithHeader({children}) {
                 onOverlayClick={onClose}
                 size="full">
                 <DrawerContent>
-                    <SidebarContent onClose={onClose}/>
+                    {/*<SidebarContent onClose={onClose}/>*/}
+                    <SidebarContent
+                        onClose={() => onClose}
+                        display={{ base: 'none', md: 'block' }}
+                        filterJobPosts={filterJobPosts}
+                        />
                 </DrawerContent>
             </Drawer>
             {/* mobilenav */}
@@ -70,8 +87,13 @@ export default function SidebarWithHeader({children}) {
     );
 }
 
-const SidebarContent = ({onClose, ...rest}) => {
+const SidebarContent = ({onClose, filterJobPosts, ...rest}) => {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleFilterClick = (keyword) => {
+            filterJobPosts(keyword);
+    };
     return (
         <Box
             transition="3s ease"
@@ -96,10 +118,17 @@ const SidebarContent = ({onClose, ...rest}) => {
             </Flex>
 
             {LinkItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon} route={link.route}>
+                <NavItem key={link.name} icon={link.icon} route={link.route} onClick={() => handleFilterClick(link.name)}>
                     {link.name}
                 </NavItem>
             ))}
+            {location.pathname !== '/dashboard/users' && (
+                LinkItems2.map((link) => (
+                    <NavItem key={link.name} icon={link.icon} route={link.route} onClick={() => handleFilterClick(link.name)}>
+                        {link.name}
+                    </NavItem>
+                ))
+            )}
         </Box>
     );
 };
@@ -107,7 +136,7 @@ const SidebarContent = ({onClose, ...rest}) => {
 
 
 
-const NavItem = ({icon, route, children, ...rest}) => {
+const NavItem = ({icon, onClick, route, children, ...rest}) => {
     const navigate = useNavigate();
 
     const handleClick = (event) => {
@@ -118,6 +147,7 @@ const NavItem = ({icon, route, children, ...rest}) => {
     return (
         <Link href={route} style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}} onClick={handleClick}>
             <Flex
+                onClick={onClick}
                 align="center"
                 p="4"
                 mx="4"
@@ -147,8 +177,8 @@ const NavItem = ({icon, route, children, ...rest}) => {
 
 
 const MobileNav = ({onOpen, ...rest}) => {
-    const { logOut, user } = useAuth()
-    const navigate= useNavigate()
+    const { logOut, user } = useAuth();
+    const navigate= useNavigate();
     const navigateToUser = () => navigate("/dashboard/users");
     console.log("debil")
     return (
@@ -210,8 +240,9 @@ const MobileNav = ({onOpen, ...rest}) => {
                             borderColor={useColorModeValue('gray.200', 'gray.700')}>
                             <MenuItem onClick={navigateToUser}>Profile</MenuItem>
                             <MenuDivider/>
-                            <MenuItem onClick={logOut}>
+                            <MenuItem onClick={() => { logOut(); onClose(); }}>
                                 Sign out
+
                             </MenuItem>
                         </MenuList>
                     </Menu>
