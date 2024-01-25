@@ -17,6 +17,7 @@ import CardWithImage from "./components/user/UserCard.jsx";
 import CardWithJobPost from "./components/jobpost/JobPostCard.jsx";
 import {useAuth} from "./components/context/AuthContext.jsx";
 import CreateJobPostForm from "./components/jobpost/CreateJobPostForm.jsx";
+import {useNavigate} from "react-router-dom";
 
 
 
@@ -30,6 +31,7 @@ const Home = () => {
     const [filteredJobPosts, setFilteredJobPosts] = useState(jobPosts);
     console.log(filteredJobPosts,"siemaaanooo")
     const [selectedKeyword, setSelectedKeyword] = useState(null);
+
 
     const fetchJobPosts = () => {
         setLoading(true);
@@ -49,6 +51,8 @@ const Home = () => {
     useEffect(() => {
         fetchJobPosts();
     }, [])
+
+
 
     const filterJobPosts = (keyword) => {
         if (keyword === 'Home') {

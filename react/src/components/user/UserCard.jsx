@@ -22,7 +22,6 @@ import UpdateUserDrawer from "./UpdateUserDrawer.jsx";
 import anonymous from "../../assets/anonymous.jpg";
 
 export default function CardWithImage({id, role,login, email, firstName, lastName, fetchUsers}) {
-
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = useRef()
 
@@ -71,8 +70,7 @@ export default function CardWithImage({id, role,login, email, firstName, lastNam
                 <Stack direction={'row'} justify={'center'} spacing={6} p={4}>
                     <Stack>
                         <UpdateUserDrawer
-                            initialValues={{  }}
-                            userId={id}
+                            login={login}
                             fetchUsers={fetchUsers}
                         />
                     </Stack>
@@ -112,11 +110,11 @@ export default function CardWithImage({id, role,login, email, firstName, lastNam
                                             Cancel
                                         </Button>
                                         <Button colorScheme='red' onClick={() => {
-                                            deleteUser(id).then(res => {
+                                            deleteUser(login).then(res => {
                                                 console.log(res)
                                                 successNotification(
                                                     'User deleted',
-                                                    `${name} was successfully deleted`
+                                                    `${login} was successfully deleted`
                                                 )
                                                 fetchUsers();
 

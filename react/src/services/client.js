@@ -51,10 +51,10 @@ export const register = async (user) => {
     }
 }
 
-export const updateUser = async (id, update) => {
+export const updateUser = async (login, update) => {
     try {
         return await axios.put(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${id}`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${login}`,
             update,
             getAuthConfig()
         )
@@ -63,10 +63,10 @@ export const updateUser = async (id, update) => {
     }
 }
 
-export const deleteUser = async (id) => {
+export const deleteUser = async (login) => {
     try {
         return await axios.delete(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${id}`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${login}`,
             getAuthConfig()
         )
     } catch (e) {

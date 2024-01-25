@@ -13,7 +13,7 @@ import UpdateUserForm from "./UpdateUserForm.jsx";
 
 const CloseIcon = () => "x";
 
-const UpdateUserDrawer = ({ fetchUsers, initialValues, userId }) => {
+const UpdateUserDrawer = ({ fetchUsers,login }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return <>
         <Button
@@ -37,8 +37,7 @@ const UpdateUserDrawer = ({ fetchUsers, initialValues, userId }) => {
                 <DrawerBody>
                     <UpdateUserForm
                         fetchUsers={fetchUsers}
-                        initialValues={initialValues}
-                        userId={userId}
+                        login={login}
                     />
                 </DrawerBody>
 

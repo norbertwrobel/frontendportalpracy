@@ -5,6 +5,7 @@ import {updateUser} from "../../services/client.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
 import {useCallback} from "react";
 import {useDropzone} from "react-dropzone";
+import {useAuth} from "../context/AuthContext.jsx";
 
 const MyTextInput = ({label, ...props}) => {
 
@@ -24,13 +25,18 @@ const MyTextInput = ({label, ...props}) => {
 };
 
 
-
-
-const UpdateUserForm = ({fetchUsers, initialValues, userId}) => {
+const UpdateUserForm = ({fetchUsers,login}) => {
+    const {user} = useAuth()
     return (
         <>
             <Formik
-                initialValues={initialValues}
+                initialValues={{
+                    firstName:"",
+                    lastName:"",
+                    login:"",
+                    password:"",
+                    email:""
+                }}
                 validationSchema={Yup.object({
                     firstName: Yup.string()
                         .max(15, 'Must be 15 characters or less')
@@ -51,13 +57,14 @@ const UpdateUserForm = ({fetchUsers, initialValues, userId}) => {
                         .required('Required')
                 })}
                 onSubmit={(updatedUser, {setSubmitting}) => {
+                    console.log("eleoeloeelo");
                     setSubmitting(true);
-                    updateUser(userId, updatedUser)
+                    updateUser(login, updatedUser)
                         .then(res => {
                             console.log(res);
                             successNotification(
                                 "User updated",
-                                `${updatedUser.name} was successfully updated`
+                                `${login} was successfully updated`
                             )
                             fetchUsers();
                         }).catch(err => {
@@ -76,14 +83,14 @@ const UpdateUserForm = ({fetchUsers, initialValues, userId}) => {
                         <Stack spacing={"24px"}>
                             <MyTextInput
                                 label="First Name"
-                                name="firstname"
+                                name="firstName"
                                 type="text"
                                 placeholder="John"
                             />
 
                             <MyTextInput
                                 label="Last Name"
-                                name="lastname"
+                                name="lastName"
                                 type="text"
                                 placeholder="Doe"
                             />
