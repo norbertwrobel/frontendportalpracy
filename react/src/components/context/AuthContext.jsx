@@ -9,7 +9,7 @@ import jwtDecode from "jwt-decode";
 
 const AuthContext = createContext({});
 
-const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children,navigate }) => {
 
     const [user, setUser] = useState(null);
 
@@ -49,6 +49,7 @@ const AuthProvider = ({ children }) => {
     const logOut = () => {
         localStorage.removeItem("access_token")
         setUser(null)
+        navigate("/")
     }
 
     const isUserAuthenticated = () => {

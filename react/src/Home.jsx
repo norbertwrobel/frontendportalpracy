@@ -1,17 +1,29 @@
 import SidebarWithHeader from "./components/shared/SideBar.jsx";
-import {Text, Wrap, WrapItem, Spinner, VStack, Button} from "@chakra-ui/react";
+import {
+    Text,
+    Wrap,
+    WrapItem,
+    Spinner,
+    VStack,
+    Button,
+    useDisclosure,
+    DrawerOverlay,
+    DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter, Drawer
+} from "@chakra-ui/react";
 import {getJobPosts} from "./services/client.js";
 import {errorNotification} from "./services/notification.js";
 import {useEffect, useState} from "react";
 import CardWithImage from "./components/user/UserCard.jsx";
 import CardWithJobPost from "./components/jobpost/JobPostCard.jsx";
 import {useAuth} from "./components/context/AuthContext.jsx";
+import CreateJobPostForm from "./components/jobpost/CreateJobPostForm.jsx";
 
 
 const Home = () => {
     const {user} = useAuth();
-
+    const CloseIcon = () => "x";
     console.log(user,"szmata")
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const [jobPosts, setJobPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const fetchJobPosts = () => {
@@ -55,7 +67,28 @@ const Home = () => {
     return (
 
         <SidebarWithHeader>
-            {user?.role == "COMPANY_HR" && <Button>Create a job post</Button>}
+            {user?.role == "COMPANY_HR" && <Button colorScheme={"teal"} onClick={onOpen}>Create a job post</Button>}
+            <Drawer isOpen={isOpen} onClose={onClose} size={"xl"}>
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerCloseButton />
+                    <DrawerHeader>Update user</DrawerHeader>
+
+                    <DrawerBody>
+                        <CreateJobPostForm
+                        />
+                    </DrawerBody>
+
+                    <DrawerFooter>
+                        <Button
+                            leftIcon={<CloseIcon/>}
+                            colorScheme={"teal"}
+                            onClick={onClose}>
+                            Close
+                        </Button>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
             <VStack align="center" spacing={"30px"}>
                     {jobPosts.map(jobPost => (
                         //<div key={jobPost.id}>{jobPost.title}</div>

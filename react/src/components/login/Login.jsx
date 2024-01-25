@@ -44,7 +44,7 @@ const MyTextInput = ({label, ...props}) => {
 const LoginForm = () => {
     const { user,setUser } = useAuth();
     const navigate = useNavigate();
-
+    console.log("elo")
     return (
         <Formik
             // validateOnMount={false}
@@ -60,8 +60,11 @@ const LoginForm = () => {
             // }
             initialValues={{login: '', password: ''}}
             onSubmit={async (values, {setSubmitting}) => {
+                console.log('pupskie')
                 setSubmitting(true);
                 await login(values).then(res => {
+                    console.log(res,"szmaciarz")
+                    console.log(values,"hej")
                     setUser(values)
                     console.log(res,"res!")
                     localStorage.removeItem("access_token")

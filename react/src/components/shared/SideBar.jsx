@@ -41,6 +41,7 @@ const LinkItems = [
 ];
 
 export default function SidebarWithHeader({children}) {
+    const navigate = useNavigate();
     const {isOpen, onOpen, onClose} = useDisclosure();
     return (
         <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
@@ -70,6 +71,7 @@ export default function SidebarWithHeader({children}) {
 }
 
 const SidebarContent = ({onClose, ...rest}) => {
+    const navigate = useNavigate();
     return (
         <Box
             transition="3s ease"
@@ -94,7 +96,7 @@ const SidebarContent = ({onClose, ...rest}) => {
             </Flex>
 
             {LinkItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon}>
+                <NavItem key={link.name} icon={link.icon} route={link.route}>
                     {link.name}
                 </NavItem>
             ))}
@@ -148,6 +150,7 @@ const MobileNav = ({onOpen, ...rest}) => {
     const { logOut, user } = useAuth()
     const navigate= useNavigate()
     const navigateToUser = () => navigate("/dashboard/users");
+    console.log("debil")
     return (
         <Flex
             ml={{base: 0, md: 60}}

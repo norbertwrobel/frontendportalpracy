@@ -100,6 +100,17 @@ export const findUser = async (login) => {
     } catch (e) {
         throw e;
     }
-}
+};
+
+export const createJobPost = async (jobPost) => {
+    try {
+        return await axios.post(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/jobposts`,
+            jobPost, getAuthConfig()
+        );
+    } catch (e) {
+        throw e;
+    }
+};
 
 
