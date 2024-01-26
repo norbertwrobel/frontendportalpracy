@@ -21,9 +21,11 @@ import {errorNotification, successNotification} from "../../services/notificatio
 import UpdateUserDrawer from "./UpdateUserDrawer.jsx";
 import anonymous from "../../assets/anonymous.jpg";
 
-export default function CardWithImage({id, role,login, email, firstName, lastName, fetchUsers}) {
+export default function CardWithImage({user, fetchUsers}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = useRef()
+    const { id, role, login, email, firstName, lastName } = user;
+    console.log("Props received:", { id, role, login, email, firstName, lastName });
 
     return (
         <Center py={6}>
@@ -58,19 +60,18 @@ export default function CardWithImage({id, role,login, email, firstName, lastNam
                 <Box p={6}>
                     <Stack spacing={2} align={'center'} mb={5}>
                         <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
-                            {name}
+                            {user.login}
                         </Heading>
-                        <Text color={'gray.500'}>{firstName}</Text>
-                        <Text color={'gray.500'}>{lastName}</Text>
-                        <Text color={'gray.500'}>{login}</Text>
-                        <Text color={'gray.500'}>{email}</Text>
-                        <Text color={'gray.500'}>{role}</Text>
+                        <Text color={'gray.500'}>{user.firstName}</Text>
+                        <Text color={'gray.500'}>{user.lastName}</Text>
+                        <Text color={'gray.500'}>{user.email}</Text>
+                        <Text color={'gray.500'}>{user.role}</Text>
                     </Stack>
                 </Box>
                 <Stack direction={'row'} justify={'center'} spacing={6} p={4}>
                     <Stack>
                         <UpdateUserDrawer
-                            login={login}
+                            login={user.login}
                             fetchUsers={fetchUsers}
                         />
                     </Stack>
@@ -102,7 +103,7 @@ export default function CardWithImage({id, role,login, email, firstName, lastNam
                                     </AlertDialogHeader>
 
                                     <AlertDialogBody>
-                                        Are you sure you want to delete {login}? You can't undo this action afterwards.
+                                        Are you sure you want to delete {user.login}? You can't undo this action afterwards.
                                     </AlertDialogBody>
 
                                     <AlertDialogFooter>
@@ -110,11 +111,11 @@ export default function CardWithImage({id, role,login, email, firstName, lastNam
                                             Cancel
                                         </Button>
                                         <Button colorScheme='red' onClick={() => {
-                                            deleteUser(login).then(res => {
+                                            deleteUser(user.login).then(res => {
                                                 console.log(res)
                                                 successNotification(
                                                     'User deleted',
-                                                    `${login} was successfully deleted`
+                                                    `${user.login} was successfully deleted`
                                                 )
                                                 fetchUsers();
 

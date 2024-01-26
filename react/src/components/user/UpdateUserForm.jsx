@@ -59,7 +59,10 @@ const UpdateUserForm = ({fetchUsers,login}) => {
                 onSubmit={(updatedUser, {setSubmitting}) => {
                     console.log("eleoeloeelo");
                     setSubmitting(true);
-                    updateUser(login, updatedUser)
+
+                    const jwtToken = localStorage.getItem("access_token");
+                        //???????????????????
+                    updateUser(login, updatedUser, jwtToken)
                         .then(res => {
                             console.log(res);
                             successNotification(
