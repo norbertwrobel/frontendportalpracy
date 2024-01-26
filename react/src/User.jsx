@@ -66,7 +66,7 @@ const User = () => {
             <SidebarWithHeader>
                 <Spinner
                     thickness='4px'
-                    speed='0.65s'
+                    speed='1.2s'
                     emptyColor='gray.200'
                     color='blue.500'
                     size='xl'
@@ -79,6 +79,7 @@ const User = () => {
         return (
             <SidebarWithHeader>
                 <CreateUserDrawer
+                    user={user}
                     fetchUsers={fetchUsers}
                 />
                 <Text mt={5}>Ooops there was an error</Text>
@@ -90,6 +91,7 @@ const User = () => {
         return (
             <SidebarWithHeader>
                 <CreateUserDrawer
+                    user={user}
                     fetchUsers={fetchUsers}
                 />
                 <Text mt={5}>No users available</Text>
@@ -105,7 +107,7 @@ const User = () => {
 
     return (
         <SidebarWithHeader>
-            <CreateUserDrawer fetchUsers={fetchUsers} />
+            <CreateUserDrawer user={user} fetchUsers={fetchUsers} />
             <Wrap justify="center" spacing="30px">
                 {users.map((user) => (
                     <WrapItem key={user.id}>

@@ -6,6 +6,9 @@ import { Card,
     Heading,
     Button,
     Text,
+    Flex,
+    Spacer,
+    ButtonGroup,
     Image} from '@chakra-ui/react';
 
 
@@ -37,9 +40,12 @@ export default function CardWithJobPost({id, title, requirements, salary, descri
                 </CardBody>
 
                 <CardFooter>
-                    <Button variant='solid' colorScheme='blue'>
-                        Apply for the job
-                    </Button>
+                    <Flex justifyContent="space-between">
+                        <ButtonGroup gap='2'>
+                            <Button colorScheme='blue'>Apply for the job</Button>
+                            <Button colorScheme='green'>Edit Post</Button>
+                        </ButtonGroup>
+                    </Flex>
                 </CardFooter>
             </Stack>
         </Card>

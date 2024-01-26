@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4bf064af-d62f-4121-950a-cbf303758f64" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/Home.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react/src/User.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/User.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/components/user/UpdateUserForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/user/UpdateUserForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/components/user/UserCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/user/UserCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/services/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/services/client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/user/CreateUserDrawer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/user/CreateUserDrawer.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +67,7 @@
       <workItem from="1706023760409" duration="23044000" />
       <workItem from="1706120669390" duration="12548000" />
       <workItem from="1706181881429" duration="8681000" />
-      <workItem from="1706208421154" duration="23359000" />
+      <workItem from="1706208421154" duration="26634000" />
     </task>
     <servers />
   </component>

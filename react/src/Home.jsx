@@ -24,7 +24,7 @@ import {useNavigate} from "react-router-dom";
 const Home = () => {
     const {user} = useAuth();
     const CloseIcon = () => "x";
-    console.log(user,"szmata")
+    console.log(user,"szmatka")
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [jobPosts, setJobPosts] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -79,7 +79,7 @@ const Home = () => {
             <SidebarWithHeader filterJobPosts={filterJobPosts}>
                 <Spinner
                     thickness='4px'
-                    speed='0.65s'
+                    speed='1.2s'
                     emptyColor='gray.200'
                     color='blue.500'
                     size='xl'
@@ -124,10 +124,10 @@ const Home = () => {
                     {/*    <CardWithJobPost {...jobPost}/>*/}
                 {selectedKeyword
                     ? filteredJobPosts.map((jobPost) => (
-                        <CardWithJobPost key={jobPost.id} {...jobPost} />
+                        <CardWithJobPost key={jobPost.id} {...jobPost}/>
                     ))
                     : jobPosts.map((jobPost) => (
-                        <CardWithJobPost key={jobPost.id} {...jobPost} />
+                        <CardWithJobPost key={jobPost.id} {...jobPost}/>
                     ))}
             </VStack>
         </SidebarWithHeader>
