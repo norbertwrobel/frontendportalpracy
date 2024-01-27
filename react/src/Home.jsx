@@ -18,6 +18,7 @@ import CardWithJobPost from "./components/jobpost/JobPostCard.jsx";
 import {useAuth} from "./components/context/AuthContext.jsx";
 import CreateJobPostForm from "./components/jobpost/CreateJobPostForm.jsx";
 import {useNavigate} from "react-router-dom";
+import EditJobPostForm from "./components/jobpost/EditJobPostForm.jsx";
 
 
 
@@ -105,8 +106,7 @@ const Home = () => {
                     <DrawerHeader>Create Job Post</DrawerHeader>
 
                     <DrawerBody>
-                        <CreateJobPostForm
-                        />
+                        <CreateJobPostForm/>
                     </DrawerBody>
 
                     <DrawerFooter>
@@ -124,10 +124,10 @@ const Home = () => {
                     {/*    <CardWithJobPost {...jobPost}/>*/}
                 {selectedKeyword
                     ? filteredJobPosts.map((jobPost) => (
-                        <CardWithJobPost key={jobPost.id} {...jobPost}/>
+                        <CardWithJobPost key={jobPost.jobId} {...jobPost}/>
                     ))
                     : jobPosts.map((jobPost) => (
-                        <CardWithJobPost key={jobPost.id} {...jobPost}/>
+                        <CardWithJobPost key={jobPost.jobId} {...jobPost}/>
                     ))}
             </VStack>
         </SidebarWithHeader>

@@ -1,12 +1,12 @@
-import {Form, Formik, useField} from 'formik';
-import * as Yup from 'yup';
-import {Alert, AlertIcon, Box, Button, FormLabel, Input, Select, Stack} from "@chakra-ui/react";
-import {saveUser, register, login, createJobPost, addUserToJobPost} from "../../services/client.js";
-import {successNotification, errorNotification} from "../../services/notification.js";
-import {useState} from "react";
-import {useAuth} from "../context/AuthContext.jsx";
+import {Form, Formik, useField} from "formik";
+import * as Yup from "yup";
+import {createJobPost, editJobPost} from "../../services/client.js";
+import {errorNotification, successNotification} from "../../services/notification.js";
+import {Alert, AlertIcon, Box, Button, FormLabel, Input, Stack} from "@chakra-ui/react";
+import CreateJobPostForm from "./CreateJobPostForm.jsx";
 
 const MyTextInput = ({label, ...props}) => {
+
     const [field, meta] = useField(props);
     return (
         <Box>
@@ -21,35 +21,18 @@ const MyTextInput = ({label, ...props}) => {
         </Box>
     );
 };
-
-// const MySelect = ({label, ...props}) => {
-//     const [field, meta] = useField(props);
-//     return (
-//         <Box>
-//             <FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>
-//             <Select {...field} {...props} />
-//             {meta.touched && meta.error ? (
-//                 <Alert className="error" status={"error"} mt={2}>
-//                     <AlertIcon/>
-//                     {meta.error}
-//                 </Alert>
-//             ) : null}
-//         </Box>
-//     );
-// };
-
-
-const CreateJobPostForm = ({ onSuccess }) => {
+const EditJobPostForm = ({jobId}) => {
+    console.log(jobId,"kurewka")
     // const [token,setToken] = useState('')
-    const {user,setUser} = useAuth()
+    // const {user,setUser} = useAuth()
     return (
         <>
             <Formik
                 initialValues={{
                     title: '',
-                    description:'',
-                    requirements:'',
-                    salary:''
+                    description: '',
+                    requirements: '',
+                    salary: ''
                 }}
                 validationSchema={Yup.object({
                     title: Yup.string()
@@ -67,18 +50,13 @@ const CreateJobPostForm = ({ onSuccess }) => {
                     console.log("dupskoo");
                     setSubmitting(true);
                     try {
-                        const response = await createJobPost(values);
-                        console.log(user,response,"siemano!!")
-                        await addUserToJobPost(response.data.jobId,user.userId)
-                        console.log("Success creating jobpost", response);
-                        response.message = "Success";
-                        successNotification(response.message);
+                        console.log("suka1")
+                        await editJobPost(jobId, values);
                     } catch (error) {
                         console.error('Error during job post creation:', error);
                         errorNotification(error.message);
                         setSubmitting(false);
                     }
-                    navigate("/dashboard");
                 }}
             >
                 {({isValid, isSubmitting}) => (
@@ -121,4 +99,4 @@ const CreateJobPostForm = ({ onSuccess }) => {
     );
 };
 
-export default CreateJobPostForm;
+export default EditJobPostForm;

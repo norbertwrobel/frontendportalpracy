@@ -4,7 +4,6 @@ const getAuthConfig = () => ({
     headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
     },
-
 })
 
 // export const getUsers = async () => {
@@ -116,6 +115,29 @@ export const createJobPost = async (jobPost) => {
         return await axios.post(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/jobposts`,
             jobPost, getAuthConfig()
+        );
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const editJobPost = async (id,values) => {
+    try {
+        return await axios.put(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/jobposts/${id}`,
+            values, getAuthConfig()
+        );
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const addUserToJobPost = async (id,companyHrId) => {
+    try {
+        return await axios.put(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/jobposts/${id}/companyHr/${companyHrId}`,
+            null,
+            getAuthConfig()
         );
     } catch (e) {
         throw e;

@@ -1,4 +1,5 @@
-import { Card,
+import {
+    Card,
     CardHeader,
     CardBody,
     CardFooter,
@@ -9,10 +10,27 @@ import { Card,
     Flex,
     Spacer,
     ButtonGroup,
-    Image} from '@chakra-ui/react';
+    Image,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+    DrawerHeader,
+    DrawerBody,
+    DrawerFooter,
+    Drawer,
+    useDisclosure
+} from '@chakra-ui/react';
+import CreateJobPostForm from "./CreateJobPostForm.jsx";
+import EditJobPostForm from "./EditJobPostForm.jsx";
+import {useAuth} from "../context/AuthContext.jsx";
 
 
-export default function CardWithJobPost({id, title, requirements, salary, description}){
+export default function CardWithJobPost({jobId, title, requirements, salary, description,companyHr}){
+    const CloseIcon = () => "x";
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const {user} = useAuth()
+    console.log(user,"gowno")
+    console.log(companyHr,"ciec")
     return(
         <Card
             width="90%"
@@ -35,7 +53,11 @@ export default function CardWithJobPost({id, title, requirements, salary, descri
                     </Text>
 
                     <Text py='2'>
-                        {description}
+                       Description: {description}
+                    </Text>
+
+                    <Text py='2'>
+                        Created by: {companyHr?.login}
                     </Text>
                 </CardBody>
 
@@ -43,10 +65,30 @@ export default function CardWithJobPost({id, title, requirements, salary, descri
                     <Flex justifyContent="space-between">
                         <ButtonGroup gap='2'>
                             <Button colorScheme='blue'>Apply for the job</Button>
-                            <Button colorScheme='green'>Edit Post</Button>
+                            {companyHr?.userId == user?.userId &&<Button onClick={onOpen} colorScheme='green'>Edit Post</Button>}
                         </ButtonGroup>
                     </Flex>
                 </CardFooter>
+                <Drawer isOpen={isOpen} onClose={onClose} size={"xl"}>
+                    <DrawerOverlay />
+                    <DrawerContent>
+                        <DrawerCloseButton />
+                        <DrawerHeader>Edit Job Post</DrawerHeader>
+
+                        <DrawerBody>
+                            <EditJobPostForm jobId={jobId}/>
+                        </DrawerBody>
+
+                        <DrawerFooter>
+                            <Button
+                                leftIcon={<CloseIcon/>}
+                                colorScheme={"teal"}
+                                onClick={onClose}>
+                                Close
+                            </Button>
+                        </DrawerFooter>
+                    </DrawerContent>
+                </Drawer>
             </Stack>
         </Card>
     )
