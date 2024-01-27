@@ -23,6 +23,7 @@ import {
 import CreateJobPostForm from "./CreateJobPostForm.jsx";
 import EditJobPostForm from "./EditJobPostForm.jsx";
 import {useAuth} from "../context/AuthContext.jsx";
+import {deleteJobPost} from "../../services/client.js";
 
 
 export default function CardWithJobPost({jobId, title, requirements, salary, description,companyHr}){
@@ -65,7 +66,24 @@ export default function CardWithJobPost({jobId, title, requirements, salary, des
                     <Flex justifyContent="space-between">
                         <ButtonGroup gap='2'>
                             <Button colorScheme='blue'>Apply for the job</Button>
-                            {companyHr?.userId == user?.userId &&<Button onClick={onOpen} colorScheme='green'>Edit Post</Button>}
+
+                            {(user && (user.role === "COMPANY_HR")) && (
+                                <>
+                                    {companyHr?.userId === user?.userId && (
+                                        <>
+                                            <Button onClick={onOpen} colorScheme='green'>Edit Post</Button>
+                                            <Button onClick={() => deleteJobPost(jobId)} colorScheme='red'>Delete Post</Button>
+                                        </>
+                                    )}
+                                </>
+                            )}
+
+                            {user && user.role === "ADMIN" && (
+                                <>
+                                    <Button onClick={onOpen} colorScheme='green'>Edit Post</Button>
+                                    <Button onClick={() => deleteJobPost(jobId)} colorScheme='red'>Delete Post</Button>
+                                </>
+                            )}
                         </ButtonGroup>
                     </Flex>
                 </CardFooter>

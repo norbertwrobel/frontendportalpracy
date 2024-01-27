@@ -121,7 +121,7 @@ export const createJobPost = async (jobPost) => {
     }
 };
 
-export const editJobPost = async (id,values) => {
+export const editJobPost = async (id, values) => {
     try {
         return await axios.put(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/jobposts/${id}`,
@@ -132,7 +132,17 @@ export const editJobPost = async (id,values) => {
     }
 };
 
-export const addUserToJobPost = async (id,companyHrId) => {
+export const deleteJobPost = async (id) => {
+    try {
+        return await axios.delete(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/jobposts/${id}`, getAuthConfig()
+        );
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const addUserToJobPost = async (id, companyHrId) => {
     try {
         return await axios.put(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/jobposts/${id}/companyHr/${companyHrId}`,

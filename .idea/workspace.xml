@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4bf064af-d62f-4121-950a-cbf303758f64" name="Changes" comment="">
+    <list default="true" id="4bf064af-d62f-4121-950a-cbf303758f64" name="Changes" comment="asdsadasda">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/User.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/User.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/components/user/CreateUserDrawer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/user/CreateUserDrawer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/services/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/services/client.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,11 +65,47 @@
       <workItem from="1706023760409" duration="23044000" />
       <workItem from="1706120669390" duration="12548000" />
       <workItem from="1706181881429" duration="8681000" />
-      <workItem from="1706208421154" duration="26634000" />
+      <workItem from="1706208421154" duration="39240000" />
     </task>
+    <task id="LOCAL-00001" summary="asdsadasda">
+      <option name="closed" value="true" />
+      <created>1706361773770</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1706361773770</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="asdsadasda" />
+    <option name="LAST_COMMIT_MESSAGE" value="asdsadasda" />
   </component>
 </project>
