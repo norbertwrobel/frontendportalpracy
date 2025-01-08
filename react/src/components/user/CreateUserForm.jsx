@@ -79,38 +79,38 @@ const CreateUserForm = ({ onSuccess }) => {
                         .required('Required'),
                 })}
                 onSubmit={async (user, {setSubmitting}) => {
-                    console.log(user,"dupskie")
+                    console.log(user)
                     setSubmitting(true);
                     try {
-                        const registerResponse = await register(user);
-                        const jwtToken = registerResponse.data.jwt;
+                        //console.log(isSubmitting)
+                        // const registerResponse = await register(user);
+                        // const jwtToken = registerResponse.data.jwt;
+                        //
+                        // console.log(jwtToken, "res");
+                        // localStorage.setItem("access_token", jwtToken);
+                        // login({login: user.login, password: user.password}, jwtToken).then(res =>{
+                        //     console.log(res.data.jwt,"pipskie")
+                        //     localStorage.setItem("access_token", res.data.jwt);
+                        // });
+                        // setUser(user)
 
-                        console.log(jwtToken, "res");
-                        localStorage.setItem("access_token", jwtToken);
-                        login({login: user.login, password: user.password}, jwtToken).then(res =>{
-                            console.log(res.data.jwt,"pipskie")
-                            localStorage.setItem("access_token", res.data.jwt);
-                        });
-                        setUser(user)
 
-
-                        // saveUser(user)
-                        //     .then(res => {
-                        //         console.log(res);
-                        //         successNotification(
-                        //             "User saved",
-                        //             `${user.name} was successfully saved`
-                        //         )
-                        //         // onSuccess(res.headers["authorization",token]);
-                        //     }).catch(err => {
-                        //     console.log(err);
-                        //     errorNotification(
-                        //         err.code,
-                        //         err.response.data.message
-                        //     )
-                        // }).finally(() => {
-                        //     setSubmitting(false);
-                        // })
+                        saveUser(user)
+                            .then(res => {
+                                console.log(res);
+                                successNotification(
+                                    "User saved",
+                                    `${user.login} was successfully saved`
+                                )
+                            }).catch(err => {
+                            console.log(err);
+                            errorNotification(
+                                err.code,
+                                err.response.data.message
+                            )
+                        }).finally(() => {
+                            setSubmitting(false);
+                        })
 
                     } catch (registerError) {
                         console.error('Error during registration:', registerError);
@@ -123,7 +123,10 @@ const CreateUserForm = ({ onSuccess }) => {
                         return;
                     }
 
-                    navigate("/dashboard");
+                    console.log("wiemy")
+                    navigate("/"); // jesli bedziemy tworzyc z zalogowanego admina to /dashboard
+                    //useauth i sprawdzac czy zalogowany jestme pozdro i sie zifić
+
 
 
                 }}

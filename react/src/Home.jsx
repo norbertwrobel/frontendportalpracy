@@ -25,7 +25,7 @@ import EditJobPostForm from "./components/jobpost/EditJobPostForm.jsx";
 const Home = () => {
     const {user} = useAuth();
     const CloseIcon = () => "x";
-    console.log(user,"szmatka")
+    //console.log(user,"szmatka")
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [jobPosts, setJobPosts] = useState([]);
     const [loading, setLoading] = useState(false);

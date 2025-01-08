@@ -20,11 +20,13 @@ import {deleteUser} from "../../services/client.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
 import UpdateUserDrawer from "./UpdateUserDrawer.jsx";
 import anonymous from "../../assets/anonymous.jpg";
+import {useAuth} from "../context/AuthContext.jsx";
 
 export default function CardWithImage({user, fetchUsers}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = useRef()
     const { id, role, login, email, firstName, lastName } = user;
+    const {logOut} = useAuth();
     console.log("Props received:", { id, role, login, email, firstName, lastName });
 
     return (
@@ -117,7 +119,7 @@ export default function CardWithImage({user, fetchUsers}) {
                                                     'User deleted',
                                                     `${user.login} was successfully deleted`
                                                 )
-                                                fetchUsers();
+                                                //fetchUsers();
 
                                             }).catch(err => {
                                                 console.log(err);
@@ -127,6 +129,7 @@ export default function CardWithImage({user, fetchUsers}) {
                                                 )
                                             }).finally(() => {
                                                 onClose()
+                                                logOut();
                                             })
                                         }} ml={3}>
                                             Delete

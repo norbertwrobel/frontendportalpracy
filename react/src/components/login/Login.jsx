@@ -21,6 +21,7 @@ import {useEffect} from "react";
 import logo from '../../assets/logo.png';
 import front from '../../assets/front.png';
 import {findUser,login} from "../../services/client.js";
+import jwtDecode from "jwt-decode";
 
 const MyTextInput = ({label, ...props}) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -60,17 +61,39 @@ const LoginForm = () => {
             // }
             initialValues={{login: '', password: ''}}
             onSubmit={async (values, {setSubmitting}) => {
-                console.log('pupskie')
+
                 setSubmitting(true);
                 await login(values).then(res => {
-                    console.log(res,"szmaciarz")
-                    console.log(values,"hej")
-                    setUser(values)
-                    console.log(res,"res!")
-                    localStorage.removeItem("access_token")
-                    localStorage.setItem("access_token",res.data.jwt)
-                    console.log(res, "siemaaa")
-                    navigate("/dashboard")
+                    // console.log(res,)
+                    // console.log(values,)
+                    // setUser(values)
+                    // console.log(res,"res!")
+                    // localStorage.removeItem("access_token")
+                    // localStorage.setItem("access_token",res.data.jwt)
+                    // console.log(res, )
+                    // navigate("/dashboard")
+                    // console.log("Successfully logged in");
+
+                    const token = res.data.jwt;
+
+                    // Zapisz token JWT w localStorage
+                    localStorage.setItem("access_token", token);
+
+                    // Dekoduj token i zapisz role
+                    const decodedToken = jwtDecode(token);
+                    const role = decodedToken.scopes?.[0]; // Załóż, że rola jest zawsze pierwsza w scopes
+                    if (role) {
+                        localStorage.setItem("role", role); // Zapisz rolę jako pojedynczy string
+                    }
+
+                    // Zaktualizuj stan użytkownika
+                    setUser({
+                        login: decodedToken.sub,
+                        role: role
+                    });
+
+                    // Przejdź na stronę dashboardu
+                    navigate("/dashboard");
                     console.log("Successfully logged in");
                 }).catch(err => {
                     errorNotification(
@@ -81,7 +104,7 @@ const LoginForm = () => {
                     setSubmitting(false);
                 })
                 const currentUser = await findUser(values.login)
-                console.log("odjeb",currentUser);
+                console.log(currentUser);
                 setUser(currentUser.data)
             }}>
 

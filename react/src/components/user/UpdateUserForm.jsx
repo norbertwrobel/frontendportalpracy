@@ -6,6 +6,7 @@ import {errorNotification, successNotification} from "../../services/notificatio
 import {useCallback} from "react";
 import {useDropzone} from "react-dropzone";
 import {useAuth} from "../context/AuthContext.jsx";
+import {useNavigate} from "react-router-dom";
 
 const MyTextInput = ({label, ...props}) => {
 
@@ -26,7 +27,8 @@ const MyTextInput = ({label, ...props}) => {
 
 
 const UpdateUserForm = ({fetchUsers,login}) => {
-    const {user} = useAuth()
+    const {user, logOut} = useAuth()
+    const navigate = useNavigate();
     return (
         <>
             <Formik
@@ -69,7 +71,8 @@ const UpdateUserForm = ({fetchUsers,login}) => {
                                 "User updated",
                                 `${login} was successfully updated`
                             )
-                            fetchUsers();
+                            //navigate("/dashboard")
+
                         }).catch(err => {
                         console.log(err);
                         errorNotification(
@@ -78,6 +81,7 @@ const UpdateUserForm = ({fetchUsers,login}) => {
                         )
                     }).finally(() => {
                         setSubmitting(false);
+                        logOut();
                     })
                 }}
             >

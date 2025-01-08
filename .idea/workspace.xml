@@ -6,8 +6,62 @@
   <component name="ChangeListManager">
     <list default="true" id="4bf064af-d62f-4121-950a-cbf303758f64" name="Changes" comment="asdsadasda">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/services/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/services/client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/@chakra-ui_react.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/@chakra-ui_react.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/@chakra-ui_react.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/@chakra-ui_react.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/@chakra-ui_toast.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/@chakra-ui_toast.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/@chakra-ui_toast.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/@chakra-ui_toast.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/_metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/_metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/axios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/axios.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/axios.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-22X72WGU.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-22X72WGU.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-22X72WGU.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-22X72WGU.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-4STLRYR2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-4STLRYR2.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-AC2VUBZ6.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-AC2VUBZ6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-AC2VUBZ6.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-AC2VUBZ6.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-BIGBMSCG.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-BIGBMSCG.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-JFTBQ7A7.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-JFTBQ7A7.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-KXMNDRCQ.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-KXMNDRCQ.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-Q4O2WPEZ.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-Q4O2WPEZ.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-TNQUW4IY.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-TNQUW4IY.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-UQZ3BPHD.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/chunk-UQZ3BPHD.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/formik.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/formik.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/formik.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/formik.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/jwt-decode.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/jwt-decode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/jwt-decode.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/jwt-decode.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-dom_client.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-dom_client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-dom_client.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-dom_client.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-dropzone.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-dropzone.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-dropzone.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-dropzone.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-icons_fi.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-icons_fi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-icons_fi.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-icons_fi.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-router-dom.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-router-dom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-router-dom.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-router-dom.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-toastify.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-toastify.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-toastify.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react-toastify.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react_jsx-dev-runtime.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react_jsx-dev-runtime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react_jsx-dev-runtime.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react_jsx-dev-runtime.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react_jsx-runtime.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react_jsx-runtime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/react_jsx-runtime.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/react_jsx-runtime.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/yup.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/yup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/node_modules/.vite/deps/yup.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/react/node_modules/.vite/deps/yup.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/User.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/User.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/context/AuthContext.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/context/AuthContext.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/login/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/shared/SideBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/shared/SideBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/user/CreateUserForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/user/CreateUserForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/user/UpdateUserForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/user/UpdateUserForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/user/UserCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/user/UserCard.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,23 +80,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Node.js.main.jsx.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/h4ck3/Desktop/frontend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\h4ck3\\AppData\\Local\\Programs\\IntelliJ IDEA Ultimate\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.App.jsx.executor": "Run",
+    "Node.js.main.jsx.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/h4ck3/Desktop/frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\h4ck3\\AppData\\Local\\Programs\\IntelliJ IDEA Ultimate\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\h4ck3\Desktop\frontend" />
@@ -51,6 +108,14 @@
       <recent name="C:\Users\h4ck3\Desktop\frontend\react\src\assets" />
       <recent name="F:\GitHub\frontendportalpracy\react\src\components\user" />
     </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -66,6 +131,8 @@
       <workItem from="1706120669390" duration="12548000" />
       <workItem from="1706181881429" duration="8681000" />
       <workItem from="1706208421154" duration="39240000" />
+      <workItem from="1736281689886" duration="66000" />
+      <workItem from="1736281859911" duration="26282000" />
     </task>
     <task id="LOCAL-00001" summary="asdsadasda">
       <option name="closed" value="true" />
