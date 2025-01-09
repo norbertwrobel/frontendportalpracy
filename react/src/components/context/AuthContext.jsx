@@ -17,11 +17,14 @@ const AuthProvider = ({ children,navigate }) => {
         // Odczytaj dane użytkownika z localStorage przy starcie aplikacji
         const token = localStorage.getItem("access_token");
         const role = localStorage.getItem("role");
+        //const userId = localStorage.getItem("userid");
 
         if (token && role) {
+            const decodedToken = jwtDecode(token);
             setUser({
                 login: jwtDecode(token).sub,
-                role: role
+                role: role,
+                userId: decodedToken.userId
             });
         }
     }, []); // Tylko przy pierwszym renderowaniu

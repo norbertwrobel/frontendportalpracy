@@ -26,10 +26,12 @@ import {useAuth} from "../context/AuthContext.jsx";
 import {deleteJobPost} from "../../services/client.js";
 
 
-export default function CardWithJobPost({jobId, title, requirements, salary, description,companyHr}){
+export default function CardWithJobPost({jobId, title, requirements, salary, description, companyHr}){
     const CloseIcon = () => "x";
     const { isOpen, onOpen, onClose } = useDisclosure()
     const {user} = useAuth()
+
+    const role = localStorage.getItem("role");
     console.log(user,"gowno")
     console.log(companyHr,"ciec")
     return(
@@ -67,7 +69,7 @@ export default function CardWithJobPost({jobId, title, requirements, salary, des
                         <ButtonGroup gap='2'>
                             <Button colorScheme='blue'>Apply for the job</Button>
 
-                            {(user && (user.role === "COMPANY_HR")) && (
+                            {(role === "COMPANY_HR") && (
                                 <>
                                     {companyHr?.userId === user?.userId && (
                                         <>
@@ -78,7 +80,7 @@ export default function CardWithJobPost({jobId, title, requirements, salary, des
                                 </>
                             )}
 
-                            {user && user.role === "ADMIN" && (
+                            {role === "ADMIN" && (
                                 <>
                                     <Button onClick={onOpen} colorScheme='green'>Edit Post</Button>
                                     <Button onClick={() => deleteJobPost(jobId)} colorScheme='red'>Delete Post</Button>

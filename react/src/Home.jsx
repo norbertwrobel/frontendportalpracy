@@ -33,6 +33,10 @@ const Home = () => {
     console.log(filteredJobPosts,"siemaaanooo")
     const [selectedKeyword, setSelectedKeyword] = useState(null);
 
+    // const role = localStorage.getItem("role");
+    const [role, setRole] = useState(localStorage.getItem("role")?.trim());
+    console.log(role, "dupa1")
+
 
     const fetchJobPosts = () => {
         setLoading(true);
@@ -51,32 +55,33 @@ const Home = () => {
     }
     useEffect(() => {
         fetchJobPosts();
+        const storedRole = localStorage.getItem("role")?.trim();
+        setRole(storedRole);
     }, [])
 
 
 
     const filterJobPosts = (keyword) => {
-        if (keyword === 'Home') {
-            setFilteredJobPosts([...jobPosts]);
+        if (!keyword || keyword === 'Home') {
+            // Resetowanie filtrów, jeśli brak keyword lub wybrano "Home"
+            setFilteredJobPosts(jobPosts);
             setSelectedKeyword(null);
-        } else if (keyword) {
-            const filteredPosts = jobPosts.filter(
-                (post) =>
-                    post.title.toLowerCase().includes(keyword.toLowerCase()) ||
-                    post.requirements.toLowerCase().includes(keyword.toLowerCase())
-            );
+        } else {
+            const filteredPosts = jobPosts.filter((post) => {
+                const lowerCaseKeyword = keyword.toLowerCase();
+                return (
+                    post.title.toLowerCase().includes(lowerCaseKeyword) ||
+                    post.requirements.toLowerCase().includes(lowerCaseKeyword)
+                );
+            });
             setFilteredJobPosts(filteredPosts);
             setSelectedKeyword(keyword);
-        } else {
-            setFilteredJobPosts([...jobPosts]);
-            setSelectedKeyword(null);
         }
     };
 
 
-
-    if (loading){
-        return(
+    if (loading) {
+        return (
             <SidebarWithHeader filterJobPosts={filterJobPosts}>
                 <Spinner
                     thickness='4px'
@@ -86,19 +91,31 @@ const Home = () => {
                     size='xl'
                 />
             </SidebarWithHeader>
-        )
+        );
     }
-    if(jobPosts.length <= 0 || filteredJobPosts.length <= 0){
-        return(
-            <SidebarWithHeader filterJobPosts={filterJobPosts}>
-                <Text>No Job Posts</Text>
-            </SidebarWithHeader>
-        )
-    }
-    return (
 
+    // if (jobPosts.length <= 0 || filteredJobPosts.length <= 0) {
+    //     return (
+    //         <SidebarWithHeader filterJobPosts={filterJobPosts}>
+    //             <Text>No Job Posts</Text>
+    //         </SidebarWithHeader>
+    //     );
+    // }
+
+    // Warunkowe renderowanie przycisku z użyciem if
+    let createJobPostButton = null;
+    if (role && role === "COMPANY_HR") {
+        console.log("cipacipa")
+        createJobPostButton = (
+            <Button colorScheme={"teal"} mb={3} onClick={onOpen}>Create a job post</Button>
+        );
+    }
+
+    return (
         <SidebarWithHeader filterJobPosts={filterJobPosts}>
-            {user?.role == "COMPANY_HR" && <Button colorScheme={"teal"} mb={3} onClick={onOpen}>Create a job post</Button>}
+            {/* Renderowanie przycisku, jeśli rola to "COMPANY_HR" */}
+            {createJobPostButton}
+
             <Drawer isOpen={isOpen} onClose={onClose} size={"xl"}>
                 <DrawerOverlay />
                 <DrawerContent>
@@ -111,7 +128,7 @@ const Home = () => {
 
                     <DrawerFooter>
                         <Button
-                            leftIcon={<CloseIcon/>}
+                            leftIcon={<CloseIcon />}
                             colorScheme={"teal"}
                             onClick={onClose}>
                             Close
@@ -119,9 +136,8 @@ const Home = () => {
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>
+
             <VStack align="center" spacing={"20px"}>
-                    {/*{jobPosts.map(jobPost => (*/}
-                    {/*    <CardWithJobPost {...jobPost}/>*/}
                 {selectedKeyword
                     ? filteredJobPosts.map((jobPost) => (
                         <CardWithJobPost key={jobPost.jobId} {...jobPost}/>
@@ -131,7 +147,7 @@ const Home = () => {
                     ))}
             </VStack>
         </SidebarWithHeader>
-    )
+    );
 }
 
 export default Home;

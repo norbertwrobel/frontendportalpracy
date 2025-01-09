@@ -1,9 +1,9 @@
 import {Form, Formik, useField} from 'formik';
 import * as Yup from 'yup';
 import {Alert, AlertIcon, Box, Button, FormLabel, Input, Select, Stack} from "@chakra-ui/react";
-import {saveUser, register, login, createJobPost, addUserToJobPost} from "../../services/client.js";
+import {saveUser, register, login, createJobPost, addUserToJobPost, findUser} from "../../services/client.js";
 import {successNotification, errorNotification} from "../../services/notification.js";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useAuth} from "../context/AuthContext.jsx";
 
 const MyTextInput = ({label, ...props}) => {
@@ -42,6 +42,22 @@ const MyTextInput = ({label, ...props}) => {
 const CreateJobPostForm = ({ onSuccess }) => {
     // const [token,setToken] = useState('')
     const {user,setUser} = useAuth()
+    const [userId, setUserId] = useState(null);
+    useEffect(() => {
+        const fetchUserId = async () => {
+            try {
+                const response = await findUser(user.login);
+                setUserId(response.data.userId); // Zakładam, że odpowiedź zawiera `userId` w `response.data`
+            } catch (error) {
+                console.error("Error fetching user ID:", error);
+            }
+        };
+
+        if (user && user.login) {
+            fetchUserId();
+        }
+    }, [user]);
+
     return (
         <>
             <Formik
@@ -69,7 +85,7 @@ const CreateJobPostForm = ({ onSuccess }) => {
                     try {
                         const response = await createJobPost(values);
                         console.log(user,response,"siemano!!")
-                        await addUserToJobPost(response.data.jobId,user.userId)
+                        await addUserToJobPost(response.data.jobId,userId)
                         console.log("Success creating jobpost", response);
                         response.message = "Success";
                         successNotification(response.message);

@@ -79,7 +79,7 @@ const CreateUserForm = ({ onSuccess }) => {
                         .required('Required'),
                 })}
                 onSubmit={async (user, {setSubmitting}) => {
-                    console.log(user)
+                    console.log(user);
                     setSubmitting(true);
                     try {
                         //console.log(isSubmitting)
@@ -132,6 +132,7 @@ const CreateUserForm = ({ onSuccess }) => {
                 }}
             >
                 {({isValid, isSubmitting}) => (
+
                     <Form>
                         <Stack spacing={"24px"}>
                             <MyTextInput
