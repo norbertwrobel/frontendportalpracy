@@ -154,4 +154,66 @@ export const addUserToJobPost = async (id, companyHrId) => {
     }
 };
 
+export const applyForTheJob = async (file, userId, jobPostId) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("userId", userId);
+    formData.append("jobPostId", jobPostId);
+
+    try {
+        return await axios.post(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/applications`,
+            formData,
+            getAuthConfig()
+        );
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const changeApplicationStatus = async (applicationId, status) => {
+    try {
+        return await axios.patch(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/applications/${applicationId}/status`,
+            null, // body is not required
+            getAuthConfig()
+        );
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const getApplication = async (applicationId) => {
+    try {
+        return await axios.get(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/applications/${applicationId}`,
+            getAuthConfig()
+        );
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const getApplications = async () => {
+    try {
+        return await axios.get(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/applications`,
+            getAuthConfig()
+        );
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const getApplicationsForUser = async (userId) => {
+    try {
+        return await axios.get(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/applications/user/${userId}`,
+            getAuthConfig()
+        );
+    } catch (e) {
+        throw e;
+    }
+};
+
 

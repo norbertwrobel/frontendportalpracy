@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4bf064af-d62f-4121-950a-cbf303758f64" name="Changes" comment="asdsadasda">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/react/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/components/context/AuthContext.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/context/AuthContext.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/components/jobpost/CreateJobPostForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/jobpost/CreateJobPostForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/components/user/CreateUserForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/user/CreateUserForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/services/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/services/client.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,8 +58,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
       </set>
     </attachedChunks>
   </component>
@@ -82,7 +78,10 @@
       <workItem from="1706181881429" duration="8681000" />
       <workItem from="1706208421154" duration="39240000" />
       <workItem from="1736281689886" duration="66000" />
-      <workItem from="1736281859911" duration="42339000" />
+      <workItem from="1736281859911" duration="45704000" />
+      <workItem from="1736533278591" duration="1469000" />
+      <workItem from="1736964456668" duration="1605000" />
+      <workItem from="1737483936108" duration="14515000" />
     </task>
     <task id="LOCAL-00001" summary="asdsadasda">
       <option name="closed" value="true" />
