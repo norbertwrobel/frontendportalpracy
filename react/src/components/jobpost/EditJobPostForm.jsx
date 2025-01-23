@@ -21,10 +21,7 @@ const MyTextInput = ({label, ...props}) => {
         </Box>
     );
 };
-const EditJobPostForm = ({jobId}) => {
-    console.log(jobId,"kurewka")
-    // const [token,setToken] = useState('')
-    // const {user,setUser} = useAuth()
+const EditJobPostForm = ({jobId, onClose}) => {
     return (
         <>
             <Formik
@@ -47,14 +44,15 @@ const EditJobPostForm = ({jobId}) => {
                         .required('Required'),
                 })}
                 onSubmit={async (values, {setSubmitting}) => {
-                    console.log("dupskoo");
                     setSubmitting(true);
                     try {
-                        console.log("suka1")
                         await editJobPost(jobId, values);
+                        successNotification('Job post updated successfully', 'The job post was successfully updated.');
+                        // onClose();  // Zamknięcie drawer po udanej edycji
                     } catch (error) {
-                        console.error('Error during job post creation:', error);
+                        console.error('Error during job post editing:', error);
                         errorNotification(error.message);
+                    } finally {
                         setSubmitting(false);
                     }
                 }}

@@ -8,7 +8,7 @@ import {
     Button,
     useDisclosure,
     DrawerOverlay,
-    DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter, Drawer
+    DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter, Drawer, Box
 } from "@chakra-ui/react";
 import {getJobPosts} from "./services/client.js";
 import {errorNotification} from "./services/notification.js";
@@ -83,13 +83,26 @@ const Home = () => {
     if (loading) {
         return (
             <SidebarWithHeader filterJobPosts={filterJobPosts}>
-                <Spinner
-                    thickness='4px'
-                    speed='1.2s'
-                    emptyColor='gray.200'
-                    color='blue.500'
-                    size='xl'
-                />
+                <Box
+                    position="fixed"
+                    top="0"
+                    left="0"
+                    width="100vw"
+                    height="100vh"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    backgroundColor="white"
+                    zIndex="9999"
+                >
+                    <Spinner
+                        thickness="4px"
+                        speed="1.2s"
+                        emptyColor="gray.200"
+                        color="blue.500"
+                        size="xl"
+                    />
+                </Box>
             </SidebarWithHeader>
         );
     }
@@ -107,7 +120,14 @@ const Home = () => {
     if (role && role === "COMPANY_HR") {
         console.log("cipacipa")
         createJobPostButton = (
-            <Button colorScheme={"teal"} mb={3} onClick={onOpen}>Create a job post</Button>
+            <Button
+                colorScheme="teal"
+                mb={3}
+                onClick={onOpen}
+                width="100%"  // Ustawia szerokość na 100% kontenera
+            >
+                Create a job post
+            </Button>
         );
     }
 

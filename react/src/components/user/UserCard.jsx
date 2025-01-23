@@ -2,7 +2,7 @@ import {
     AlertDialog,
     AlertDialogBody, AlertDialogContent,
     AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay,
-    Avatar,
+    Avatar, Badge,
     Box,
     Button,
     Center,
@@ -28,6 +28,21 @@ export default function CardWithImage({user, fetchUsers}) {
     const { id, role, login, email, firstName, lastName } = user;
     const {logOut} = useAuth();
     console.log("Props received:", { id, role, login, email, firstName, lastName });
+
+    const getRoleBadgeColor = (role) => {
+        switch (role) {
+            case 'CANDIDATE':
+                return 'green';
+            case 'COMPANY_HR':
+                return 'blue';
+            case 'MODERATOR':
+                return 'yellow';
+            case 'ADMIN':
+                return 'red';
+            default:
+                return 'gray';
+        }
+    };
 
     return (
         <Center py={6}>
@@ -62,12 +77,19 @@ export default function CardWithImage({user, fetchUsers}) {
                 <Box p={6}>
                     <Stack spacing={2} align={'center'} mb={5}>
                         <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
-                            {user.login}
+                            {user.firstName} {user.lastName}
                         </Heading>
-                        <Text color={'gray.500'}>{user.firstName}</Text>
-                        <Text color={'gray.500'}>{user.lastName}</Text>
+                        {/*<Text color={'gray.500'}>{user.firstName}</Text>*/}
+                        <Text color={'gray.500'}>
+                                {user.login}
+                        </Text>
+
                         <Text color={'gray.500'}>{user.email}</Text>
-                        <Text color={'gray.500'}>{user.role}</Text>
+                        <Text color={'gray.500'}>
+                            <Badge colorScheme={getRoleBadgeColor(user.role)} borderRadius="full" mt={5} px={4} py={2}>
+                                {user.role}
+                            </Badge>
+                        </Text>
                     </Stack>
                 </Box>
                 <Stack direction={'row'} justify={'center'} spacing={6} p={4}>

@@ -21,7 +21,9 @@ const CreateUserDrawer = ({ fetchUsers, user }) => {
             <Button
                 leftIcon={<AddIcon/>}
                 colorScheme={"teal"}
+                mb={3}
                 onClick={onOpen}
+                width="100%"
             >
                 Create user
             </Button>

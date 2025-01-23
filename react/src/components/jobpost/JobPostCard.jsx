@@ -18,7 +18,7 @@ import {
     DrawerBody,
     DrawerFooter,
     Drawer,
-    useDisclosure, Badge
+    useDisclosure, Badge, Box
 } from '@chakra-ui/react';
 import CreateJobPostForm from "./CreateJobPostForm.jsx";
 import EditJobPostForm from "./EditJobPostForm.jsx";
@@ -41,7 +41,7 @@ export default function CardWithJobPost({jobId, title, requirements, salary, des
     console.log(companyHr,"ciec")
 
     useEffect(() => {
-        if (user && user.userId) {
+        if (user && user.userId && user.role === 'CANDIDATE') {
             // Pobierz aplikacje użytkownika
             getApplicationsForUser(user.userId)
                 .then((response) => {
@@ -59,10 +59,16 @@ export default function CardWithJobPost({jobId, title, requirements, salary, des
 
 
     // Funkcja obsługująca wybranie pliku
-    const onDrop = (acceptedFiles) => {
-        const file = acceptedFiles[0];
-        setSelectedFile(file);
-        console.log("Wybrano plik:", file);
+    const onDrop = (acceptedFiles, rejectedFiles) => {
+        if (acceptedFiles.length > 0) {
+            const file = acceptedFiles[0];
+            setSelectedFile(file);
+            console.log("Wybrano plik:", file);
+        }
+
+        if (rejectedFiles.length > 0) {
+            alert("Only .pdf files are allowed!");
+        }
     };
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -74,64 +80,92 @@ export default function CardWithJobPost({jobId, title, requirements, salary, des
     return(
         <Card
             width="90%"
-            direction={{ base: 'column', sm: 'row' }}
+            direction={{ base: 'column', sm: 'row' }}  // Keep it column for small screens
             overflow='hidden'
             variant='outline'
         >
+            <Stack
+                direction={{ base: 'column', sm: 'row' }}  // Flexbox direction for large screens
+                width="100%"  // Ensure it takes full width
+            >
+                {/* Left Column: 85% for text content */}
+                <Box flex="8" p={4}>  {/* Takes 85% of the width */}
+                    <CardBody>
+                        <Heading size='md' mb={4}>{title}</Heading>
 
+                        <Badge colorScheme='purple' borderRadius="md" fontSize="sm" px={2} py={1}>
+                            Requirements:
+                        </Badge>
+                        <Text py='2'>
+                            {requirements}
+                        </Text>
 
-            <Stack>
-                <CardBody>
-                    <Heading size='md'>{title}</Heading>
+                        <Badge colorScheme='green' borderRadius="md" fontSize="sm" px={2} py={1}>
+                            Salary:
+                        </Badge>
+                        <Text py='2'>
+                            {salary} PLN
+                        </Text>
 
-                    <Text py='2'>
-                        Requirements: {requirements}
-                    </Text>
+                        <Badge colorScheme='gray' borderRadius="md" fontSize="sm" px={2} py={1}>
+                            Description:
+                        </Badge>
+                        <Text py='2' color="gray.600">
+                            {description}
+                        </Text>
 
-                    <Text py='2'>
-                        Salary: {salary} PLN
-                    </Text>
+                        <Badge colorScheme='pink' borderRadius="md" fontSize="sm" px={2} py={1}>
+                            Created by: {companyHr?.login}
+                        </Badge>
+                    </CardBody>
 
-                    <Text py='2'>
-                       Description: {description}
-                    </Text>
+                    <CardFooter>
+                        <Flex width="100%" justifyContent="space-between" alignItems="center">
+                            <ButtonGroup gap='2'>
+                                {role === "CANDIDATE" && (
+                                    // Sprawdzamy, czy aplikacja już istnieje (czyli czy istnieje jakikolwiek status)
+                                    !applicationStatuses[jobId] ? (
+                                        <Button onClick={onApplyOpen} colorScheme='blue'>
+                                            Apply for the job
+                                        </Button>
+                                    ) : null
+                                )}
 
-                    <Text py='2'>
-                        Created by: {companyHr?.login}
-                    </Text>
-                </CardBody>
+                                {(role === "COMPANY_HR") && (
+                                    <>
+                                        {companyHr?.userId === user?.userId && (
+                                            <>
+                                                <Button onClick={onEditOpen} colorScheme='green'>Edit Post</Button>
+                                                <Button onClick={() => deleteJobPost(jobId)} colorScheme='red'>Delete Post</Button>
+                                            </>
+                                        )}
+                                    </>
+                                )}
 
-                <CardFooter>
-                    <Flex justifyContent="space-between">
-                        <ButtonGroup gap='2'>
+                                {role === "ADMIN" && (
+                                    <>
+                                        <Button onClick={onEditOpen} colorScheme='green'>Edit Post</Button>
+                                        <Button onClick={() => deleteJobPost(jobId)} colorScheme='red'>Delete Post</Button>
+                                    </>
+                                )}
+                            </ButtonGroup>
+                        </Flex>
+                    </CardFooter>
+                </Box>
 
-                            {role === "CANDIDATE" && (
-                                <>
-                                    <Button onClick={onApplyOpen} colorScheme='blue'>Apply for the job</Button>
-                                </>
-                            )}
-                            {/*<Button colorScheme='blue'>Apply for the job</Button>*/}
-
-                            {(role === "COMPANY_HR") && (
-                                <>
-                                    {companyHr?.userId === user?.userId && (
-                                        <>
-                                            <Button onClick={onEditOpen} colorScheme='green'>Edit Post</Button>
-                                            <Button onClick={() => deleteJobPost(jobId)} colorScheme='red'>Delete Post</Button>
-                                        </>
-                                    )}
-                                </>
-                            )}
-
-                            {role === "ADMIN" && (
-                                <>
-                                    <Button onClick={onEditOpen} colorScheme='green'>Edit Post</Button>
-                                    <Button onClick={() => deleteJobPost(jobId)} colorScheme='red'>Delete Post</Button>
-                                </>
-                            )}
-                        </ButtonGroup>
-                        {/* Status aplikacji wyświetlany po prawej stronie */}
-                        {role === 'CANDIDATE' && applicationStatuses[jobId] && (
+                {/* Right Column: For Status Badge (15% width) */}
+                <Box flex="2" p={4} display={{ base: 'none', sm: 'block' }}>
+                    {/* This box will take 15% width */}
+                    <Box
+                        position="sticky"  // Make sure badge stays visible when scrolling
+                        top="20px"  // Keep it a little lower than the top
+                        display="flex"
+                        justifyContent="flex-end"  // Align the badge to the right
+                        alignItems="center"
+                        height="100%"  // Ensure it spans the whole height
+                        mr={10}
+                    >
+                        {user?.role === 'CANDIDATE' && applicationStatuses[jobId] && (
                             <Badge
                                 colorScheme={
                                     applicationStatuses[jobId] === 'ACCEPTED'
@@ -140,100 +174,106 @@ export default function CardWithJobPost({jobId, title, requirements, salary, des
                                             ? 'red'
                                             : 'yellow'
                                 }
+                                px={8} // Padding inside
+                                py={4} // Padding inside
+                                fontSize="l" // Smaller font size
+                                borderRadius="full" // Rounded corners
                             >
                                 {applicationStatuses[jobId]}
                             </Badge>
                         )}
-                    </Flex>
-                </CardFooter>
-                <Drawer isOpen={isEditOpen} onClose={onEditClose} size={"xl"}>
-                    <DrawerOverlay />
-                    <DrawerContent>
-                        <DrawerCloseButton />
-                        <DrawerHeader>Edit Job Post</DrawerHeader>
-
-                        <DrawerBody>
-                            <EditJobPostForm jobId={jobId}/>
-                        </DrawerBody>
-
-                        <DrawerFooter>
-                            <Button
-                                leftIcon={<CloseIcon/>}
-                                colorScheme={"teal"}
-                                onClick={onEditClose}>
-                                Close
-                            </Button>
-                        </DrawerFooter>
-                    </DrawerContent>
-                </Drawer>
-
-                <Drawer isOpen={isApplyOpen} onClose={onApplyClose} size={"xl"}>
-                    <DrawerOverlay />
-                    <DrawerContent>
-                        <DrawerCloseButton />
-                        <DrawerHeader>Apply for the Job</DrawerHeader>
-
-                        <DrawerBody>
-                            {/* Dropzone do przesyłania plików */}
-                            <div
-                                {...getRootProps({
-                                    onDrop: (acceptedFiles) => {
-                                        if (acceptedFiles && acceptedFiles.length > 0) {
-                                            setSelectedFile(acceptedFiles[0]); // Zaktualizuj stan wybranym plikiem
-                                        }
-                                    }
-                                })}
-                                style={{
-                                    border: "2px dashed #ddd",
-                                    borderRadius: "10px",
-                                    padding: "50px",
-                                    textAlign: "center",
-                                    cursor: "pointer"
-                                }}
-                            >
-                                <input {...getInputProps()} />
-                                {isDragActive ? (
-                                    <p>Drop the file here...</p>
-                                ) : (
-                                    <p>Click here or drag a file to upload</p>
-                                )}
-                            </div>
-                            {/* Wyświetlenie nazwy wybranego pliku */}
-                            {selectedFile && (
-                                <Text mt={4}>
-                                    Selected file: <strong>{selectedFile.name}</strong>
-                                </Text>
-                            )}
-
-                            {/* Przycisk do wysłania aplikacji */}
-                            <Button
-                                mt={4}
-                                colorScheme="blue"
-                                onClick={() => {
-                                    if (!selectedFile) {
-                                        alert("Please select a file before submitting!");
-                                        return;
-                                    }
-                                    applyForTheJob(selectedFile, user.userId, jobId)
-                                        .then(() => {
-                                            alert("Application submitted successfully!");
-                                            onApplyClose(); // Zamknięcie okna po sukcesie
-                                        })
-                                        .catch((error) =>
-                                            alert("Error submitting application: " + error.message)
-                                        );
-                                }}
-                            >
-                                Submit
-                            </Button>
-                        </DrawerBody>
-
-                        <DrawerFooter>
-                            <Button colorScheme="blue" onClick={onApplyClose}>Close</Button>
-                        </DrawerFooter>
-                    </DrawerContent>
-                </Drawer>
+                    </Box>
+                </Box>
             </Stack>
+
+            {/* Drawers for editing and applying */}
+            <Drawer isOpen={isEditOpen} onClose={onEditClose} size={"xl"}>
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerCloseButton />
+                    <DrawerHeader>Edit Job Post</DrawerHeader>
+
+                    <DrawerBody>
+                        <EditJobPostForm jobId={jobId} />
+                    </DrawerBody>
+
+                    <DrawerFooter>
+                        <Button
+                            leftIcon={<CloseIcon />}
+                            colorScheme={"teal"}
+                            onClick={onEditClose}>
+                            Close
+                        </Button>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
+
+            <Drawer isOpen={isApplyOpen} onClose={onApplyClose} size={"xl"}>
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerCloseButton />
+                    <DrawerHeader>Apply for the Job</DrawerHeader>
+
+                    <DrawerBody>
+                        {/* Dropzone for file upload */}
+                        <div
+                            {...getRootProps({
+                                onDrop: (acceptedFiles) => {
+                                    if (acceptedFiles && acceptedFiles.length > 0) {
+                                        setSelectedFile(acceptedFiles[0]); // Update the state with the selected file
+                                    }
+                                }
+                            })}
+                            style={{
+                                border: "2px dashed #ddd",
+                                borderRadius: "10px",
+                                padding: "50px",
+                                textAlign: "center",
+                                cursor: "pointer"
+                            }}
+                        >
+                            <input {...getInputProps()} />
+                            {isDragActive ? (
+                                <p>Drop the file here...</p>
+                            ) : (
+                                <p>Click here or drag a .pdf file to upload</p>
+                            )}
+                        </div>
+                        {/* Display the selected file name */}
+                        {selectedFile && (
+                            <Text mt={4}>
+                                Selected file: <strong>{selectedFile.name}</strong>
+                            </Text>
+                        )}
+
+                        {/* Button to submit application */}
+                        <Button
+                            mt={4}
+                            colorScheme="blue"
+                            onClick={() => {
+                                if (!selectedFile) {
+                                    alert("Please select a file before submitting!");
+                                    return;
+                                }
+                                applyForTheJob(selectedFile, user.userId, jobId)
+                                    .then(() => {
+                                        alert("Application submitted successfully!");
+                                        onApplyClose(); // Close the modal after success
+                                    })
+                                    .catch((error) =>
+                                        alert("Error submitting application: " + error.message)
+                                    );
+                            }}
+                        >
+                            Submit
+                        </Button>
+                    </DrawerBody>
+
+                    <DrawerFooter>
+                        <Button colorScheme="blue" onClick={onApplyClose}>Close</Button>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
         </Card>
     )
 
