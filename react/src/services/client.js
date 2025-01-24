@@ -110,6 +110,30 @@ export const findUser = async (login) => {
     }
 };
 
+export const getUser = async (userId) => {
+    try {
+        return await axios.get(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/user/${userId}`,
+            getAuthConfig()
+        )
+    } catch (e) {
+        throw e;
+    }
+};
+
+// export const getUser = async (userId) => {
+//     try {
+//         const response = await axios.get(
+//             `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${userId}`,
+//             getAuthConfig()
+//         );
+//         return response.data;
+//     } catch (error) {
+//         console.error(`Błąd podczas pobierania danych użytkownika o ID ${userId}:`, error);
+//         throw error;
+//     }
+// };
+
 export const createJobPost = async (jobPost) => {
     try {
         return await axios.post(
@@ -173,9 +197,10 @@ export const applyForTheJob = async (file, userId, jobPostId) => {
 
 export const changeApplicationStatus = async (applicationId, status) => {
     try {
+        // Wykonujemy żądanie PATCH, przekazując status jako parametr zapytania
         return await axios.patch(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/applications/${applicationId}/status`,
-            null, // body is not required
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/applications/${applicationId}/status?status=${status}`, // parametr status
+            null,
             getAuthConfig()
         );
     } catch (e) {

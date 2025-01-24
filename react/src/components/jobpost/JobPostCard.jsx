@@ -23,7 +23,13 @@ import {
 import CreateJobPostForm from "./CreateJobPostForm.jsx";
 import EditJobPostForm from "./EditJobPostForm.jsx";
 import {useAuth} from "../context/AuthContext.jsx";
-import {applyForTheJob, deleteJobPost, getApplication, getApplicationsForUser} from "../../services/client.js";
+import {
+    applyForTheJob, changeApplicationStatus,
+    deleteJobPost,
+    getApplication,
+    getApplications,
+    getApplicationsForUser, getUser
+} from "../../services/client.js";
 import {useDropzone} from "react-dropzone";
 import {useEffect, useState} from "react";
 
@@ -37,8 +43,9 @@ export default function CardWithJobPost({jobId, title, requirements, salary, des
     const {user} = useAuth()
     const role = localStorage.getItem("role");
     const [applicationStatuses, setApplicationStatuses] = useState({});
-    console.log(user,"gowno")
-    console.log(companyHr,"ciec")
+    const [applications, setApplications] = useState([]);
+    const { isOpen: isApplicationsOpen, onOpen: onApplicationsOpen, onClose: onApplicationsClose } = useDisclosure();
+
 
     useEffect(() => {
         if (user && user.userId && user.role === 'CANDIDATE') {
@@ -56,6 +63,62 @@ export default function CardWithJobPost({jobId, title, requirements, salary, des
                 });
         }
     }, [user]);
+
+    const fetchApplications = async () => {
+        try {
+            const response = await getApplications();
+            // Filtruj aplikacje, aby uzyskać tylko te z danym jobId
+            const filteredApplications = response.data.filter(app => app.jobId === jobId);
+
+            // Pobierz dane użytkownika dla każdej aplikacji
+            const applicationsWithUserData = await Promise.all(
+                filteredApplications.map(async (application) => {
+                    try {
+                        const response = await getUser(application.userId);
+                        const user = response.data; // Otrzymujemy dane użytkownika z odpowiedzi
+                        return {
+                            ...application,
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                        };
+                    } catch (error) {
+                        console.error(`Błąd podczas pobierania danych użytkownika o ID ${application.userId}:`, error);
+                        return application; // Zwróć aplikację bez danych użytkownika w przypadku błędu
+                    }
+                })
+            );
+            setApplications(applicationsWithUserData);
+            // console.log(applicationsWithUserData)
+        } catch (error) {
+            console.error('Błąd podczas pobierania aplikacji:', error);
+        }
+    };
+
+    const handleAccept = (applicationId) => {
+        const newStatus = 'ACCEPTED';
+        changeApplicationStatus(applicationId, newStatus)
+            .then(() => {
+                alert("Application accepted!");
+                fetchApplications(); // Ponownie załaduj aplikacje
+            })
+            .catch((error) => {
+                console.error("Error accepting application:", error);
+            });
+    };
+
+    const handleReject = (applicationId) => {
+        const newStatus = 'REJECTED';
+        changeApplicationStatus(applicationId, newStatus)
+            .then(() => {
+                alert("Application rejected!");
+                fetchApplications(); // Ponownie załaduj aplikacje
+            })
+            .catch((error) => {
+                console.error("Error rejecting application:", error);
+            });
+    };
+
+
 
 
     // Funkcja obsługująca wybranie pliku
@@ -115,7 +178,7 @@ export default function CardWithJobPost({jobId, title, requirements, salary, des
                         </Text>
 
                         <Badge colorScheme='pink' borderRadius="md" fontSize="sm" px={2} py={1}>
-                            Created by: {companyHr?.login}
+                            Created by: {companyHr?.firstName} {companyHr?.lastName}
                         </Badge>
                     </CardBody>
 
@@ -166,21 +229,31 @@ export default function CardWithJobPost({jobId, title, requirements, salary, des
                         mr={10}
                     >
                         {user?.role === 'CANDIDATE' && applicationStatuses[jobId] && (
-                            <Badge
-                                colorScheme={
-                                    applicationStatuses[jobId] === 'ACCEPTED'
-                                        ? 'green'
-                                        : applicationStatuses[jobId] === 'REJECTED'
-                                            ? 'red'
-                                            : 'yellow'
-                                }
-                                px={8} // Padding inside
-                                py={4} // Padding inside
-                                fontSize="l" // Smaller font size
-                                borderRadius="full" // Rounded corners
-                            >
-                                {applicationStatuses[jobId]}
-                            </Badge>
+                            <>
+                                <Badge
+                                    colorScheme={
+                                        applicationStatuses[jobId] === 'ACCEPTED'
+                                            ? 'green'
+                                            : applicationStatuses[jobId] === 'REJECTED'
+                                                ? 'red'
+                                                : 'yellow'
+                                    }
+                                    px={8} // Padding inside
+                                    py={4} // Padding inside
+                                    fontSize="l" // Smaller font size
+                                    borderRadius="full" // Rounded corners
+                                >
+                                    {applicationStatuses[jobId]}
+                                </Badge>
+                            </>
+                        )}
+                        {role === 'COMPANY_HR' && companyHr?.userId === user?.userId && (
+                            <Button onClick={() => {
+                                onApplicationsOpen(); // Otwórz Drawer
+                                fetchApplications();  // Pobierz aplikacje dla danego jobId
+                            }} colorScheme='teal'>
+                                Show applications
+                            </Button>
                         )}
                     </Box>
                 </Box>
@@ -204,6 +277,72 @@ export default function CardWithJobPost({jobId, title, requirements, salary, des
                             onClick={onEditClose}>
                             Close
                         </Button>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
+
+            <Drawer isOpen={isApplicationsOpen} onClose={onApplicationsClose} size={"xl"}>
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerCloseButton />
+                    <DrawerHeader>Applications for {title}</DrawerHeader>
+                    <DrawerBody>
+                        {applications.length > 0 ? (
+                            applications.map(application => (
+                                <Box key={`${application.id}-${application.firstName}-${application.lastName}`} p={4} borderWidth="1px" borderRadius="md" mb={4}>
+
+                                    {/* First row: Candidate and CV */}
+                                    <Flex direction="row" align="center" mb={2}>
+                                        <Text><strong>Candidate:</strong> {application.firstName} {application.lastName}</Text>
+                                        <Spacer />
+                                        <Text><strong>CV:</strong> {application.fileName}</Text>
+                                    </Flex>
+
+                                    {/* Second row: Status, Badge, and ButtonGroup */}
+                                    <Flex direction="row" align="center" justify="space-between">
+                                        <Box>
+                                            <Text><strong>Status:</strong></Text>
+                                            <Badge
+                                                colorScheme={
+                                                    application.status === 'ACCEPTED' ? 'green' :
+                                                        application.status === 'REJECTED' ? 'red' :
+                                                            'yellow'
+                                                }
+                                                fontSize="md"
+                                                px={2}
+                                                py={1}
+                                                borderRadius="md"
+                                                mt={2}
+                                            >
+                                                {application.status}
+                                            </Badge>
+                                        </Box>
+
+                                        {application.status !== 'ACCEPTED' && application.status !== 'REJECTED' && (
+                                            <ButtonGroup spacing={2} mt={1}>
+                                                <Button
+                                                    colorScheme="green"
+                                                    onClick={() => handleAccept(application.applicationId)} // Przekazanie applicationId
+                                                >
+                                                    Accept
+                                                </Button>
+                                                <Button
+                                                    colorScheme="red"
+                                                    onClick={() => handleReject(application.applicationId)} // Przekazanie applicationId
+                                                >
+                                                    Reject
+                                                </Button>
+                                            </ButtonGroup>
+                                        )}
+                                    </Flex>
+                                </Box>
+                            ))
+                        ) : (
+                            <Text>No applications for this job</Text>
+                        )}
+                    </DrawerBody>
+                    <DrawerFooter>
+                        <Button colorScheme="blue" onClick={onApplicationsClose}>Close</Button>
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>

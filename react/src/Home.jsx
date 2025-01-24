@@ -6,69 +6,58 @@ import {
     Spinner,
     VStack,
     Button,
+    Input,
     useDisclosure,
     DrawerOverlay,
-    DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter, Drawer, Box
+    DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter, Drawer, Box,
+    Stack
 } from "@chakra-ui/react";
 import {getJobPosts} from "./services/client.js";
 import {errorNotification} from "./services/notification.js";
 import {useEffect, useState} from "react";
-import CardWithImage from "./components/user/UserCard.jsx";
 import CardWithJobPost from "./components/jobpost/JobPostCard.jsx";
 import {useAuth} from "./components/context/AuthContext.jsx";
 import CreateJobPostForm from "./components/jobpost/CreateJobPostForm.jsx";
-import {useNavigate} from "react-router-dom";
-import EditJobPostForm from "./components/jobpost/EditJobPostForm.jsx";
-
-
 
 const Home = () => {
     const {user} = useAuth();
     const CloseIcon = () => "x";
-    //console.log(user,"szmatka")
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const [jobPosts, setJobPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [filteredJobPosts, setFilteredJobPosts] = useState(jobPosts);
-    console.log(filteredJobPosts,"siemaaanooo")
     const [selectedKeyword, setSelectedKeyword] = useState(null);
-
-    // const role = localStorage.getItem("role");
     const [role, setRole] = useState(localStorage.getItem("role")?.trim());
-    console.log(role, "dupa1")
 
+    // Paginacja
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(5); // Liczba ofert na stronie
 
     const fetchJobPosts = () => {
         setLoading(true);
         getJobPosts().then(res => {
-            setJobPosts(res.data)
-            setFilteredJobPosts(res.data)
+            setJobPosts(res.data);
+            setFilteredJobPosts(res.data);
         }).catch(err => {
-            // setError(err.response.data.message)
-            errorNotification(
-                err.code,
-                err.response.data.message
-            )
+            errorNotification(err.code, err.response.data.message);
         }).finally(() => {
-            setLoading(false)
-        })
-    }
+            setLoading(false);
+        });
+    };
+
     useEffect(() => {
         fetchJobPosts();
         const storedRole = localStorage.getItem("role")?.trim();
         setRole(storedRole);
-    }, [])
-
-
+    }, []);
 
     const filterJobPosts = (keyword) => {
-        if (!keyword || keyword === 'Home') {
-            // Resetowanie filtrów, jeśli brak keyword lub wybrano "Home"
+        if (!keyword || keyword.trim() === '') {
             setFilteredJobPosts(jobPosts);
             setSelectedKeyword(null);
         } else {
+            const lowerCaseKeyword = keyword.toLowerCase();
             const filteredPosts = jobPosts.filter((post) => {
-                const lowerCaseKeyword = keyword.toLowerCase();
                 return (
                     post.title.toLowerCase().includes(lowerCaseKeyword) ||
                     post.requirements.toLowerCase().includes(lowerCaseKeyword)
@@ -79,52 +68,24 @@ const Home = () => {
         }
     };
 
+    // Paginacja - obliczanie danych do wyświetlenia
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = filteredJobPosts.slice(indexOfFirstPost, indexOfLastPost);
 
-    if (loading) {
-        return (
-            <SidebarWithHeader filterJobPosts={filterJobPosts}>
-                <Box
-                    position="fixed"
-                    top="0"
-                    left="0"
-                    width="100vw"
-                    height="100vh"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    backgroundColor="white"
-                    zIndex="9999"
-                >
-                    <Spinner
-                        thickness="4px"
-                        speed="1.2s"
-                        emptyColor="gray.200"
-                        color="blue.500"
-                        size="xl"
-                    />
-                </Box>
-            </SidebarWithHeader>
-        );
-    }
+    const totalPages = Math.ceil(filteredJobPosts.length / postsPerPage);
 
-    // if (jobPosts.length <= 0 || filteredJobPosts.length <= 0) {
-    //     return (
-    //         <SidebarWithHeader filterJobPosts={filterJobPosts}>
-    //             <Text>No Job Posts</Text>
-    //         </SidebarWithHeader>
-    //     );
-    // }
+    // Funkcja nawigacji
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    // Warunkowe renderowanie przycisku z użyciem if
     let createJobPostButton = null;
     if (role && role === "COMPANY_HR") {
-        console.log("cipacipa")
         createJobPostButton = (
             <Button
                 colorScheme="teal"
                 mb={3}
                 onClick={onOpen}
-                width="100%"  // Ustawia szerokość na 100% kontenera
+                width="100%"
             >
                 Create a job post
             </Button>
@@ -133,7 +94,16 @@ const Home = () => {
 
     return (
         <SidebarWithHeader filterJobPosts={filterJobPosts}>
-            {/* Renderowanie przycisku, jeśli rola to "COMPANY_HR" */}
+            {/* Wyszukiwanie */}
+            <Box mb={4}>
+                <Input
+                    placeholder="Search job posts..."
+                    onChange={(e) => filterJobPosts(e.target.value)}
+                    size="lg"
+                    value={selectedKeyword || ''}
+                />
+            </Box>
+
             {createJobPostButton}
 
             <Drawer isOpen={isOpen} onClose={onClose} size={"xl"}>
@@ -143,7 +113,7 @@ const Home = () => {
                     <DrawerHeader>Create Job Post</DrawerHeader>
 
                     <DrawerBody>
-                        <CreateJobPostForm/>
+                        <CreateJobPostForm />
                     </DrawerBody>
 
                     <DrawerFooter>
@@ -158,16 +128,31 @@ const Home = () => {
             </Drawer>
 
             <VStack align="center" spacing={"20px"}>
-                {selectedKeyword
-                    ? filteredJobPosts.map((jobPost) => (
-                        <CardWithJobPost key={jobPost.jobId} {...jobPost}/>
-                    ))
-                    : jobPosts.map((jobPost) => (
-                        <CardWithJobPost key={jobPost.jobId} {...jobPost}/>
-                    ))}
+                {currentPosts.map((jobPost) => (
+                    <CardWithJobPost key={jobPost.jobId} {...jobPost} />
+                ))}
             </VStack>
+
+            {/* Paginacja */}
+            <Stack direction="row" spacing={4} justify="center" mt={6}>
+                <Button
+                    onClick={() => paginate(currentPage - 1)}
+                    isDisabled={currentPage === 1}
+                >
+                    Previous
+                </Button>
+                <Text>
+                    Page {currentPage} of {totalPages}
+                </Text>
+                <Button
+                    onClick={() => paginate(currentPage + 1)}
+                    isDisabled={currentPage === totalPages}
+                >
+                    Next
+                </Button>
+            </Stack>
         </SidebarWithHeader>
     );
-}
+};
 
 export default Home;

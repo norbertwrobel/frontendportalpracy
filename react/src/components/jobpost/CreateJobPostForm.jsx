@@ -86,7 +86,7 @@ const CreateJobPostForm = ({ onClose }) => {
                         const response = await createJobPost(values);
                         await addUserToJobPost(response.data.jobId, userId);
                         successNotification("Job post created successfully");
-                        onClose();
+                        //onClose();
                     } catch (error) {
                         console.error('Error during job post creation:', error);
                         errorNotification(error.message);
