@@ -241,4 +241,20 @@ export const getApplicationsForUser = async (userId) => {
     }
 };
 
+export const generateJobDescription = async (title, requirements) => {
+    try {
+        const prompt = `Wygeneruj opis pracy ${title}\n z wymaganiami ${requirements} w 5 zdaniach max 254 znaków`;
+        const response = await axios.get(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/bot/chat`,
+            {
+                params: { prompt },
+                ...getAuthConfig(),
+            }
+        );
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+};
+
 

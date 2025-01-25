@@ -29,7 +29,7 @@ const CreateJobPostDrawer = () => {
             <DrawerOverlay />
             <DrawerContent>
                 <DrawerCloseButton />
-                <DrawerHeader>Update user</DrawerHeader>
+                <DrawerHeader>Create Job Post</DrawerHeader>
 
                 {/*<DrawerBody>*/}
                 {/*    <CreateJobPostForm*/}

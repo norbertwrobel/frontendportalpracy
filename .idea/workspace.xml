@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bf064af-d62f-4121-950a-cbf303758f64" name="Changes" comment="asdsadasda">
-      <change afterPath="$PROJECT_DIR$/react/src/components/jobpost/JobPostSearch.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react/src/components/jobpost/CreateJobPostDrawer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/jobpost/CreateJobPostDrawer.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react/src/components/jobpost/CreateJobPostForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/jobpost/CreateJobPostForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/components/jobpost/JobPostCard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react/src/services/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/react/src/services/client.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +85,8 @@
       <workItem from="1737483936108" duration="14515000" />
       <workItem from="1737572415219" duration="3180000" />
       <workItem from="1737578951656" duration="10640000" />
-      <workItem from="1737654946789" duration="16965000" />
+      <workItem from="1737654946789" duration="17649000" />
+      <workItem from="1737747100964" duration="12044000" />
     </task>
     <task id="LOCAL-00001" summary="asdsadasda">
       <option name="closed" value="true" />
