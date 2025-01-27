@@ -99,17 +99,20 @@ const CreateJobPostForm = ({ onClose }) => {
                     .required('Required'),
             })}
             onSubmit={async (values, { setSubmitting }) => {
-                setSubmitting(true);
-                try {
-                    const response = await createJobPost(values);
-                    await addUserToJobPost(response.data.jobId, userId);
-                    successNotification("Job post created successfully");
-                    onClose();
-                } catch (error) {
-                    console.error('Error during job post creation:', error);
-                    errorNotification(error.message);
-                    setSubmitting(false);
-                }
+                // setSubmitting(true);
+
+                const response = await createJobPost(values);
+                await addUserToJobPost(response.data.jobId, userId);
+                successNotification("Job post created successfully");
+                // try {
+                //     const response = await createJobPost(values);
+                //     await addUserToJobPost(response.data.jobId, userId);
+                //     successNotification("Job post created successfully");
+                // } catch (error) {
+                //     console.error('Error during job post creation:', error);
+                //     errorNotification(error.message);
+                //     setSubmitting(false);
+                // }
             }}
         >
             {({ isValid, isSubmitting, values, setFieldValue }) => (

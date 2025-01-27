@@ -82,19 +82,6 @@ const CreateUserForm = ({ onSuccess }) => {
                     console.log(user);
                     setSubmitting(true);
                     try {
-                        //console.log(isSubmitting)
-                        // const registerResponse = await register(user);
-                        // const jwtToken = registerResponse.data.jwt;
-                        //
-                        // console.log(jwtToken, "res");
-                        // localStorage.setItem("access_token", jwtToken);
-                        // login({login: user.login, password: user.password}, jwtToken).then(res =>{
-                        //     console.log(res.data.jwt,"pipskie")
-                        //     localStorage.setItem("access_token", res.data.jwt);
-                        // });
-                        // setUser(user)
-
-
                         saveUser(user)
                             .then(res => {
                                 console.log(res);

@@ -29,20 +29,6 @@ const AuthProvider = ({ children,navigate }) => {
         }
     }, []); // Tylko przy pierwszym renderowaniu
 
-    // const setUserFromToken = () => {
-    //     let token = localStorage.getItem("access_token");
-    //     if (token) {
-    //         token = jwtDecode(token);
-    //         setUser({
-    //             login: token.sub,
-    //             roles: token.scopes
-    //         })
-    //     }
-    // }
-    // useEffect(() => {
-    //     setUserFromToken()
-    // }, [])
-
 
     const login = async (usernameAndPassword) => {
         return new Promise((resolve, reject) => {

@@ -1,45 +1,35 @@
-import SidebarWithHeader from "./components/shared/SideBar.jsx";
-import {
-    Text,
-    Wrap,
-    WrapItem,
-    Spinner,
-    VStack,
-    Button,
-    Input,
-    useDisclosure,
-    DrawerOverlay,
-    DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter, Drawer, Box,
-    Stack
-} from "@chakra-ui/react";
-import {getJobPosts} from "./services/client.js";
-import {errorNotification} from "./services/notification.js";
-import {useEffect, useState} from "react";
-import CardWithJobPost from "./components/jobpost/JobPostCard.jsx";
-import {useAuth} from "./components/context/AuthContext.jsx";
-import CreateJobPostForm from "./components/jobpost/CreateJobPostForm.jsx";
+import React, { useState, useEffect } from 'react';
+import { Input, Button, Stack, Box, Text } from '@chakra-ui/react';
+import { useAuth } from "../context/AuthContext.jsx";
+import { useDisclosure } from "@chakra-ui/react";
+import SidebarWithHeader from "./SidebarWithHeader";  // Upewnij się, że masz ten komponent
+import { getJobPosts } from "../services/jobPostService"; // Zaktualizuj ścieżkę do API
+import CreateJobPostForm from "./CreateJobPostForm"; // Twoje formularze do tworzenia oferty pracy
+import CardWithJobPost from "./CardWithJobPost"; // Komponent dla wyświetlania ofert pracy
+import { Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerFooter } from "@chakra-ui/react";
 
 const Home = () => {
-    const {user} = useAuth();
-    const CloseIcon = () => "x";
+    const { user } = useAuth();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [jobPosts, setJobPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [filteredJobPosts, setFilteredJobPosts] = useState(jobPosts);
-    const [selectedKeyword, setSelectedKeyword] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");  // Stan dla wyszukiwania
     const [role, setRole] = useState(localStorage.getItem("role")?.trim());
+    const [isSidebarClick, setIsSidebarClick] = useState(false); // Nowy stan dla kliknięcia w sidebar
 
     // Paginacja
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(5); // Liczba ofert na stronie
 
+    // Pobieranie ofert pracy
     const fetchJobPosts = () => {
         setLoading(true);
-        getJobPosts().then(res => {
+        getJobPosts().then((res) => {
             setJobPosts(res.data);
             setFilteredJobPosts(res.data);
-        }).catch(err => {
-            errorNotification(err.code, err.response.data.message);
+        }).catch((err) => {
+            console.error(err.code, err.response.data.message);
         }).finally(() => {
             setLoading(false);
         });
@@ -51,21 +41,30 @@ const Home = () => {
         setRole(storedRole);
     }, []);
 
+    // Funkcja filtrująca oferty pracy
     const filterJobPosts = (keyword) => {
-        if (!keyword || keyword.trim() === '') {
-            setFilteredJobPosts(jobPosts);
-            setSelectedKeyword(null);
-        } else {
-            const lowerCaseKeyword = keyword.toLowerCase();
-            const filteredPosts = jobPosts.filter((post) => {
-                return (
-                    post.title.toLowerCase().includes(lowerCaseKeyword) ||
-                    post.requirements.toLowerCase().includes(lowerCaseKeyword)
-                );
-            });
-            setFilteredJobPosts(filteredPosts);
-            setSelectedKeyword(keyword);
+        if (!isSidebarClick) {
+            setSearchQuery(keyword);  // Update search query only when not from sidebar
         }
+        setFilteredJobPosts(jobPosts.filter((post) => {
+            return (
+                post.title.toLowerCase().includes(keyword.toLowerCase()) ||
+                post.requirements.toLowerCase().includes(keyword.toLowerCase())
+            );
+        }));
+        setIsSidebarClick(false);  // Reset sidebar click state
+    };
+
+    // const handleInputChange = (e) => {
+    //     setSearchQuery(e.target.value);
+    //     filterJobPosts(e.target.value);
+    // };
+
+    // Funkcja uruchamiana po kliknięciu w element sidebaru
+    const handleSidebarClick = (keyword) => {
+        setIsSidebarClick(true);  // Oznaczamy, że kliknięto w sidebar
+        setSearchQuery(keyword);  // Ustawiamy słowo kluczowe w polu wyszukiwania (opcja opcjonalna)
+        filterJobPosts(keyword);  // Filtrujemy oferty pracy na podstawie sidebaru
     };
 
     // Paginacja - obliczanie danych do wyświetlenia
@@ -93,14 +92,14 @@ const Home = () => {
     }
 
     return (
-        <SidebarWithHeader filterJobPosts={filterJobPosts}>
+        <SidebarWithHeader filterJobPosts={handleSidebarClick}> {/* Przekazujemy funkcję do sidebaru */}
             {/* Wyszukiwanie */}
             <Box mb={4}>
                 <Input
                     placeholder="Search job posts..."
-                    onChange={(e) => filterJobPosts(e.target.value)}
+                    onChange={handleInputChange}
                     size="lg"
-                    value={selectedKeyword || ''}
+                    value={searchQuery}
                 />
             </Box>
 
@@ -118,8 +117,7 @@ const Home = () => {
 
                     <DrawerFooter>
                         <Button
-                            leftIcon={<CloseIcon />}
-                            colorScheme={"teal"}
+                            colorScheme="teal"
                             onClick={onClose}>
                             Close
                         </Button>
