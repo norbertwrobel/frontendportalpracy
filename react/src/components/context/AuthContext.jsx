@@ -10,14 +10,12 @@ import jwtDecode from "jwt-decode";
 const AuthContext = createContext({});
 
 const AuthProvider = ({ children,navigate }) => {
-
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        // Odczytaj dane użytkownika z localStorage przy starcie aplikacji
+        // odczytaj dane uzytkownika z localStorage przy starcie aplikacji
         const token = localStorage.getItem("access_token");
         const role = localStorage.getItem("role");
-        //const userId = localStorage.getItem("userid");
 
         if (token && role) {
             const decodedToken = jwtDecode(token);
@@ -27,8 +25,7 @@ const AuthProvider = ({ children,navigate }) => {
                 userId: decodedToken.userId
             });
         }
-    }, []); // Tylko przy pierwszym renderowaniu
-
+    }, []); //tylko przy pierwszym renderowaniu
 
     const login = async (usernameAndPassword) => {
         return new Promise((resolve, reject) => {
@@ -42,8 +39,6 @@ const AuthProvider = ({ children,navigate }) => {
                     localStorage.setItem("role", role);
                 }
 
-                console.log("siemko",res.data.jwt)
-                console.log(decodedToken,"dekod")
                 setUser({
                     login: decodedToken.sub,
                     role: decodedToken.scopes
@@ -58,7 +53,6 @@ const AuthProvider = ({ children,navigate }) => {
     const logOut = () => {
         localStorage.removeItem("access_token")
         localStorage.removeItem("role")
-        //localStorage.removeItem("roles")
         setUser(null)
         navigate("/");
     }

@@ -19,7 +19,6 @@ const JobPostSearch = ({ jobPosts }) => {
 
     return (
         <Box p={4} width="100%">
-            {/* Wyszukiwanie */}
             <Stack direction="row" spacing={4}>
                 <Input
                     placeholder="Search job posts..."
@@ -31,7 +30,6 @@ const JobPostSearch = ({ jobPosts }) => {
                 </Button>
             </Stack>
 
-            {/* Wyniki wyszukiwania */}
             <Box mt={4}>
                 {filteredJobPosts.length === 0 ? (
                     <Text>No job posts found</Text>

@@ -9,7 +9,7 @@ import { applyForTheJob } from "../../services/client.js";
 const ApplyDrawer = ({ isOpen, onClose, jobId, user }) => {
     const [selectedFile, setSelectedFile] = useState(null);
 
-    // Funkcja obsługująca wybór pliku
+    // funkcja obslugujaca wybor pliku
     const onDrop = (acceptedFiles, rejectedFiles) => {
         if (acceptedFiles.length > 0) {
             const file = acceptedFiles[0];
@@ -36,7 +36,7 @@ const ApplyDrawer = ({ isOpen, onClose, jobId, user }) => {
         applyForTheJob(selectedFile, user.userId, jobId)
             .then(() => {
                 alert("Application submitted successfully!");
-                onClose(); // Zamknij Drawer po udanej aplikacji
+                onClose();
             })
             .catch((error) => alert("Error submitting application: " + error.message));
     };

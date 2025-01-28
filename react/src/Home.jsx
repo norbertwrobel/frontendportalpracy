@@ -55,11 +55,6 @@ const Home = () => {
         setIsSidebarClick(false);  // Reset sidebar click state
     };
 
-    // const handleInputChange = (e) => {
-    //     setSearchQuery(e.target.value);
-    //     filterJobPosts(e.target.value);
-    // };
-
     // Funkcja uruchamiana po kliknięciu w element sidebaru
     const handleSidebarClick = (keyword) => {
         setIsSidebarClick(true);  // Oznaczamy, że kliknięto w sidebar

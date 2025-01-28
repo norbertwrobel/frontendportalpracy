@@ -59,11 +59,9 @@ const UpdateUserForm = ({fetchUsers,login}) => {
                         .required('Required')
                 })}
                 onSubmit={(updatedUser, {setSubmitting}) => {
-                    console.log("eleoeloeelo");
                     setSubmitting(true);
 
                     const jwtToken = localStorage.getItem("access_token");
-                        //???????????????????
                     updateUser(login, updatedUser, jwtToken)
                         .then(res => {
                             console.log(res);
@@ -71,8 +69,6 @@ const UpdateUserForm = ({fetchUsers,login}) => {
                                 "User updated",
                                 `${login} was successfully updated`
                             )
-                            //navigate("/dashboard")
-
                         }).catch(err => {
                         console.log(err);
                         errorNotification(

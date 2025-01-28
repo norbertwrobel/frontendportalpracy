@@ -83,7 +83,6 @@ export const deleteUser = async (login) => {
 }
 
 export const login = async (usernameAndPassword, token) => {
-    console.log(token, "token")
     try {
         return await axios.post(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/authenticate`,

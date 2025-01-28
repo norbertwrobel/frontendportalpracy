@@ -12,11 +12,9 @@ const JobPostCard = ({ jobId, title, requirements, salary, description, companyH
     const [isApplyOpen, setIsApplyOpen] = useState(false);
     const [isApplicationsOpen, setIsApplicationsOpen] = useState(false);
 
-    // Funkcja otwierająca okno dialogowe dla aplikacji
     const onApplyOpen = () => setIsApplyOpen(true);
     const onApplyClose = () => setIsApplyOpen(false);
 
-    // Funkcja otwierająca okno dialogowe dla aplikacji kandydata
     const onApplicationsOpen = () => setIsApplicationsOpen(true);
     const onApplicationsClose = () => setIsApplicationsOpen(false);
 
@@ -36,7 +34,6 @@ const JobPostCard = ({ jobId, title, requirements, salary, description, companyH
 
     return (
         <Card>
-            {/* Treść oferty pracy */}
             <Stack direction={{ base: "column", sm: "row" }} spacing={4}>
                 <Box flex={1}>
                     <Text fontWeight="bold" fontSize="lg">{title}</Text>
@@ -46,7 +43,7 @@ const JobPostCard = ({ jobId, title, requirements, salary, description, companyH
                 </Box>
                 <Spacer />
                 <Box>
-                    {/* Przyciski zależne od roli użytkownika */}
+                    {/* przyciski zalezne od roli uzytkownika */}
                     {role === "CANDIDATE" && !applicationStatuses[jobId] && (
                         <Button colorScheme="blue" onClick={onApplyOpen}>
                             Apply for the Job
@@ -68,7 +65,7 @@ const JobPostCard = ({ jobId, title, requirements, salary, description, companyH
             {/* Drawer do aplikacji */}
             <ApplyDrawer isOpen={isApplyOpen} onClose={onApplyClose} jobId={jobId} user={user} />
 
-            {/* Drawer do przeglądania aplikacji */}
+            {/* Drawer do przegladania aplikacji */}
             <ShowApplicationsDrawer isOpen={isApplicationsOpen} onClose={onApplicationsClose} jobId={jobId} />
         </Card>
     );

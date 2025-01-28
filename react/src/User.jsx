@@ -19,31 +19,13 @@ const User = () => {
     const [err, setError] = useState("");
     const {user} = useAuth();
 
-    // const fetchUsers = () => {
-    //     setLoading(true);
-    //     getUsers().then(res => {
-    //         setUsers(res.data)
-    //     }).catch(err => {
-    //         setError(err.response.data.message)
-    //         errorNotification(
-    //             err.code,
-    //             err.response.data.message
-    //         )
-    //     }).finally(() => {
-    //         setLoading(false)
-    //     })
-    // }
-
     const fetchUsers = async () => {
-        if (!user) return; // Jeśli użytkownik nie jest załadowany, zakończ funkcję
-
+        if (!user) return;
         setLoading(true);
-        console.log(user, "to jest user pozdro")
-
         try {
             // Check if the user is logged in and has a valid role
             let response;
-            if (user.role === "COMPANY_HR" || user.role === "CANDIDATE") { // to jebie cale wszystko jak sie odswieza bo ten user jest dla beki na chwile/ moze zapisz go do storage tak jak token pozdro i wtedy usuwac z logouta usera pozdro ale moze to nie dziala nw !! ROLE WJEB DO STORAGE A NIE CALY USER BO PEWNIE NIE DZIALA
+            if (user.role === "COMPANY_HR" || user.role === "CANDIDATE") {
                 // Fetch only the currently logged user by login
                 response = await getUsers(user.login);
                 setUsers([response.data]); // Wrap the single user in an array
@@ -61,7 +43,7 @@ const User = () => {
     };
 
     useEffect(() => {
-        console.log(user,"user auth")
+        //console.log(user,"user auth")
         fetchUsers();
     }, [user])
 

@@ -37,7 +37,6 @@ const CreateJobPostDrawer = () => {
                 {/*</DrawerBody>*/}
 
                 <DrawerBody>
-                    {/* Przekazujemy onClose jako prop do CreateJobPostForm */}
                     <CreateJobPostForm onClose={onClose} />
                 </DrawerBody>
 

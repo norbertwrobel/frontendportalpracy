@@ -44,7 +44,7 @@ const ShowApplicationsDrawer = ({ isOpen, onClose, jobId }) => {
         changeApplicationStatus(applicationId, "ACCEPTED")
             .then(() => {
                 alert("Application accepted!");
-                // Ponownie załaduj aplikacje
+                // ponownie zaladuj aplikacje
                 setApplications((prevApps) =>
                     prevApps.map((app) =>
                         app.applicationId === applicationId ? { ...app, status: "ACCEPTED" } : app
@@ -58,7 +58,6 @@ const ShowApplicationsDrawer = ({ isOpen, onClose, jobId }) => {
         changeApplicationStatus(applicationId, "REJECTED")
             .then(() => {
                 alert("Application rejected!");
-                // Ponownie załaduj aplikacje
                 setApplications((prevApps) =>
                     prevApps.map((app) =>
                         app.applicationId === applicationId ? { ...app, status: "REJECTED" } : app
