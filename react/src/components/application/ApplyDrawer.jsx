@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
     Drawer, DrawerBody, DrawerCloseButton, DrawerContent,
-    DrawerFooter, DrawerHeader, Button, Text, useDisclosure
+    DrawerFooter, DrawerHeader, Button, Text, useDisclosure, DrawerOverlay
 } from "@chakra-ui/react";
 import { useDropzone } from "react-dropzone";
 import { applyForTheJob } from "../../services/client.js";

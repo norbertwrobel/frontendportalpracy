@@ -1,9 +1,11 @@
 import {Form, Formik, useField} from "formik";
 import * as Yup from "yup";
-import {createJobPost, editJobPost} from "../../services/client.js";
+import {createJobPost, editJobPost, findUser, generateJobDescription} from "../../services/client.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
 import {Alert, AlertIcon, Box, Button, FormLabel, Input, Stack} from "@chakra-ui/react";
 import CreateJobPostForm from "./CreateJobPostForm.jsx";
+import {useAuth} from "../context/AuthContext.jsx";
+import {useEffect, useState} from "react";
 
 const MyTextInput = ({label, ...props}) => {
 
@@ -20,8 +22,10 @@ const MyTextInput = ({label, ...props}) => {
             ) : null}
         </Box>
     );
+
 };
 const EditJobPostForm = ({jobId, onClose}) => {
+
     return (
         <>
             <Formik
@@ -86,6 +90,13 @@ const EditJobPostForm = ({jobId, onClose}) => {
                                 type="text"
                                 placeholder="Type in description of the position"
                             />
+
+                            {/*<Button*/}
+                            {/*    onClick={() => handleGenerateDescription(values, setFieldValue)}*/}
+                            {/*    isDisabled={!values.title || !values.requirements}*/}
+                            {/*>*/}
+                            {/*    Generate Description*/}
+                            {/*</Button>*/}
 
                             <Button disabled={!isValid || isSubmitting} type={"submit"}>Submit</Button>
                         </Stack>

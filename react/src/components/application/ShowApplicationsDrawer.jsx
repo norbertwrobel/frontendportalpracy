@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
     Drawer, DrawerBody, DrawerCloseButton, DrawerContent,
-    DrawerFooter, DrawerHeader, Button, Text, Box, Badge, Flex, Spacer, ButtonGroup
+    DrawerFooter, DrawerHeader, Button, Text, Box, Badge, Flex, Spacer, ButtonGroup, DrawerOverlay
 } from "@chakra-ui/react";
 import { getApplications, getUser, changeApplicationStatus } from "../../services/client.js";
 

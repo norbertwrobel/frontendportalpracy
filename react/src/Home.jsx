@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Button, Stack, Box, Text } from '@chakra-ui/react';
-import { useAuth } from "../context/AuthContext.jsx";
+import {Input, Button, Stack, Box, Text, DrawerCloseButton, VStack} from '@chakra-ui/react';
+import { useAuth } from "./components/context/AuthContext.jsx";
 import { useDisclosure } from "@chakra-ui/react";
-import SidebarWithHeader from "./SidebarWithHeader";  // Upewnij się, że masz ten komponent
-import { getJobPosts } from "../services/jobPostService"; // Zaktualizuj ścieżkę do API
-import CreateJobPostForm from "./CreateJobPostForm"; // Twoje formularze do tworzenia oferty pracy
-import CardWithJobPost from "./CardWithJobPost"; // Komponent dla wyświetlania ofert pracy
+import SidebarWithHeader from "./components/shared/SideBar.jsx";
+import { getJobPosts } from "./services/client.js";
+import CreateJobPostForm from "./components/jobpost/CreateJobPostForm.jsx";
+import CardWithJobPost from "./components/jobpost/JobPostCard.jsx";
 import { Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerFooter } from "@chakra-ui/react";
 
 const Home = () => {
@@ -14,13 +14,13 @@ const Home = () => {
     const [jobPosts, setJobPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [filteredJobPosts, setFilteredJobPosts] = useState(jobPosts);
-    const [searchQuery, setSearchQuery] = useState("");  // Stan dla wyszukiwania
+    const [searchQuery, setSearchQuery] = useState("");
     const [role, setRole] = useState(localStorage.getItem("role")?.trim());
-    const [isSidebarClick, setIsSidebarClick] = useState(false); // Nowy stan dla kliknięcia w sidebar
+    const [isSidebarClick, setIsSidebarClick] = useState(false);
 
     // Paginacja
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(5); // Liczba ofert na stronie
+    const [postsPerPage] = useState(5);
 
     // Pobieranie ofert pracy
     const fetchJobPosts = () => {
@@ -44,7 +44,7 @@ const Home = () => {
     // Funkcja filtrująca oferty pracy
     const filterJobPosts = (keyword) => {
         if (!isSidebarClick) {
-            setSearchQuery(keyword);  // Update search query only when not from sidebar
+            setSearchQuery(keyword);
         }
         setFilteredJobPosts(jobPosts.filter((post) => {
             return (
@@ -52,14 +52,19 @@ const Home = () => {
                 post.requirements.toLowerCase().includes(keyword.toLowerCase())
             );
         }));
-        setIsSidebarClick(false);  // Reset sidebar click state
+        setIsSidebarClick(false);
     };
 
-    // Funkcja uruchamiana po kliknięciu w element sidebaru
+
     const handleSidebarClick = (keyword) => {
-        setIsSidebarClick(true);  // Oznaczamy, że kliknięto w sidebar
-        setSearchQuery(keyword);  // Ustawiamy słowo kluczowe w polu wyszukiwania (opcja opcjonalna)
-        filterJobPosts(keyword);  // Filtrujemy oferty pracy na podstawie sidebaru
+        setIsSidebarClick(true);
+        setSearchQuery(keyword);
+        filterJobPosts(keyword);
+    };
+
+    const handleInputChange = (event) => {
+        setSearchQuery(event.target.value);
+        filterJobPosts(event.target.value);
     };
 
     // Paginacja - obliczanie danych do wyświetlenia
@@ -69,7 +74,6 @@ const Home = () => {
 
     const totalPages = Math.ceil(filteredJobPosts.length / postsPerPage);
 
-    // Funkcja nawigacji
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     let createJobPostButton = null;
@@ -87,7 +91,7 @@ const Home = () => {
     }
 
     return (
-        <SidebarWithHeader filterJobPosts={handleSidebarClick}> {/* Przekazujemy funkcję do sidebaru */}
+        <SidebarWithHeader filterJobPosts={handleSidebarClick}>
             {/* Wyszukiwanie */}
             <Box mb={4}>
                 <Input

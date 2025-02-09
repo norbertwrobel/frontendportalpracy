@@ -87,7 +87,7 @@ const SidebarContent = ({ onClose, filterJobPosts, ...rest }) => {
     const location = useLocation();
 
     const handleFilterClick = (keyword) => {
-        filterJobPosts(keyword);  // Wywołujemy filtrację wyników
+        filterJobPosts(keyword);
     };
 
     return (
@@ -113,14 +113,12 @@ const SidebarContent = ({ onClose, filterJobPosts, ...rest }) => {
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
 
-            {/* LinkItems nie przekazujemy do filtrowania */}
             {LinkItems.map((link) => (
                 <NavItem key={link.name} icon={link.icon} route={link.route}>
                     {link.name}
                 </NavItem>
             ))}
 
-            {/* LinkItems2 przekazujemy do filtrowania */}
             {location.pathname !== '/dashboard/users' && (
                 LinkItems2.map((link) => (
                     <NavItem key={link.name} icon={link.icon} route={link.route} onClick={() => handleFilterClick(link.name)}>
@@ -143,7 +141,7 @@ const NavItem = ({ icon, onClick, route, children, ...rest }) => {
     return (
         <Link href={route} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }} onClick={handleClick}>
             <Flex
-                onClick={onClick}  // onClick wywołuje filtrowanie tylko dla elementów z LinkItems2
+                onClick={onClick}
                 align="center"
                 p="4"
                 mx="4"
@@ -168,5 +166,79 @@ const NavItem = ({ icon, onClick, route, children, ...rest }) => {
                 {children}
             </Flex>
         </Link>
+    );
+};
+
+const MobileNav = ({onOpen, ...rest}) => {
+    const { logOut, user } = useAuth();
+    const navigate= useNavigate();
+    const navigateToUser = () => navigate("/dashboard/users");
+    return (
+        <Flex
+            ml={{base: 0, md: 60}}
+            px={{base: 4, md: 4}}
+            height="20"
+            alignItems="center"
+            bg={useColorModeValue('white', 'gray.900')}
+            borderBottomWidth="1px"
+            borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+            justifyContent={{base: 'space-between', md: 'flex-end'}}
+            {...rest}>
+            <IconButton
+                display={{base: 'flex', md: 'none'}}
+                onClick={onOpen}
+                variant="outline"
+                aria-label="open menu"
+                icon={<FiMenu/>}
+            />
+
+            <Text
+                display={{base: 'flex', md: 'none'}}
+                fontSize="2xl"
+                fontFamily="monospace"
+                fontWeight="bold">
+                Logo
+            </Text>
+
+            <HStack spacing={{base: '0', md: '6'}}>
+
+                <Flex alignItems={'center'}>
+                    <Menu>
+                        <MenuButton
+                            py={2}
+                            transition="all 0.3s"
+                            _focus={{boxShadow: 'none'}}>
+                            <HStack>
+                                <Avatar
+                                    size={'sm'}
+                                    src={
+                                        avatar
+                                    }
+                                />
+                                <VStack
+                                    display={{base: 'none', md: 'flex'}}
+                                    alignItems="flex-start"
+                                    spacing="1px"
+                                    ml="2">
+                                    <Text fontSize="sm">{user?.username}</Text>
+                                </VStack>
+                                <Box display={{base: 'none', md: 'flex'}}>
+                                    <FiChevronDown/>
+                                </Box>
+                            </HStack>
+                        </MenuButton>
+                        <MenuList
+                            bg={useColorModeValue('white', 'gray.900')}
+                            borderColor={useColorModeValue('gray.200', 'gray.700')}>
+                            <MenuItem onClick={navigateToUser}>Profile</MenuItem>
+                            <MenuDivider/>
+                            <MenuItem onClick={() => { logOut(); }}>
+                                Sign out
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                </Flex>
+            </HStack>
+        </Flex>
     );
 };

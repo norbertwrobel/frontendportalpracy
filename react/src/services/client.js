@@ -145,6 +145,7 @@ export const createJobPost = async (jobPost) => {
 };
 
 export const editJobPost = async (id, values) => {
+
     try {
         return await axios.put(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/jobposts/${id}`,
